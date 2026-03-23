@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shared.Contracts.Models;
-using System.Collections.Generic;
 using System.Linq;
+using CustomerService.Data;
 
 namespace CustomerService.Controllers
 {
@@ -9,18 +9,23 @@ namespace CustomerService.Controllers
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
-        private static List<User> _users = new List<User>();
+        private readonly CustomerDbContext _context;
+
+        public AuthController(CustomerDbContext context)
+        {
+            _context = context;
+        }
 
         [HttpPost("register")]
         public IActionResult Register([FromBody] User newUser)
         {
-            if (_users.Any(u => u.Email == newUser.Email))
+            if (_context.Users.Any(u => u.Email == newUser.Email))
             {
                 return BadRequest(new { message = "El correo ya está registrado." });
             }
 
-            newUser.Id = _users.Count > 0 ? _users.Max(u => u.Id) + 1 : 1;
-            _users.Add(newUser);
+            _context.Users.Add(newUser);
+            _context.SaveChanges(); // Guarda  en SQL Server
 
             return Ok(new { message = "Usuario registrado con éxito", userId = newUser.Id });
         }
@@ -28,7 +33,7 @@ namespace CustomerService.Controllers
         [HttpGet("Obtener")]
         public IActionResult Index()
         {
-            var user = _users.FirstOrDefault();
+            var user = _context.Users.FirstOrDefault();
 
             if (user == null)
                 return NotFound(new { message = "No hay usuarios registrados" });
@@ -39,7 +44,7 @@ namespace CustomerService.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginRequest request)
         {
-            var user = _users.FirstOrDefault(u => u.Email == request.Email && u.Password == request.Password);
+            var user = _context.Users.FirstOrDefault(u => u.Email == request.Email && u.Password == request.Password);
 
             if (user == null)
             {
@@ -52,7 +57,7 @@ namespace CustomerService.Controllers
         [HttpPut("recover")]
         public IActionResult RecoverPassword([FromBody] User recoverInfo)
         {
-            var user = _users.FirstOrDefault(u => u.Email == recoverInfo.Email);
+            var user = _context.Users.FirstOrDefault(u => u.Email == recoverInfo.Email);
 
             if (user == null)
             {
@@ -60,6 +65,8 @@ namespace CustomerService.Controllers
             }
 
             user.Password = recoverInfo.Password;
+            _context.SaveChanges(); // Actualiza en SQL Server
+
             return Ok(new { message = "Contraseña actualizada correctamente. Ya puedes iniciar sesión." });
         }
     }
