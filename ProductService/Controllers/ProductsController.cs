@@ -37,9 +37,9 @@ namespace ProductService.Controllers
         }
 
         [HttpPut("EditarProducto")]
-        public IActionResult Update(int id, [FromBody] Product updated)
+        public IActionResult Update([FromBody] Product updated)
         {
-            var product = _products.FirstOrDefault(p => p.Id == p.Id);
+            var product = _products.FirstOrDefault(p => p.Id == updated.Id);
             if (product == null)
                 return NotFound(new { message = "Material no encontrado." });
 
