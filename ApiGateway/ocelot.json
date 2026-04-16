@@ -1,7 +1,7 @@
   {
     "Routes": [
       {
-        "DownstreamPathTemplate": "/api/products/{everything}",
+        "DownstreamPathTemplate": "/api/Product/{everything}",
         "DownstreamScheme": "http",
         "DownstreamHostAndPorts": [
           {
