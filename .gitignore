@@ -1,0 +1,11 @@
+# Visual Studio
+.vs/
+
+# Compilados
+bin/
+obj/
+
+# Archivos temporales
+*.user
+*.suo
+*.cache
