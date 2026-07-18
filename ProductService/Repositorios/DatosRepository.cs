@@ -14,20 +14,22 @@ namespace ProductService.Repositorios
         public async Task<IEnumerable<DatosM2>> GetAll()
             => await _db.DatosM2.ToListAsync();
 
-        public async Task<DatosM2?> GetById(int id)
+        public async Task<DatosM2?> GetById(Guid id)
             => await _db.DatosM2.FindAsync(id);
 
         public async Task<DatosM2> Create(DatosM2 datosM2)
         {
             if (datosM2.Value <= 0)
                 throw new ArgumentException("El valor de m2 debe ser mayor a cero.");
+            if (datosM2.Id == Guid.Empty)
+                datosM2.Id = Guid.NewGuid();
 
             _db.DatosM2.Add(datosM2);
             await _db.SaveChangesAsync();
             return datosM2;
         }
 
-        public async Task<DatosM2?> Update(int id, DatosM2 datosM2)
+        public async Task<DatosM2?> Update(Guid id, DatosM2 datosM2)
         {
             var existing = await _db.DatosM2.FindAsync(id);
             if (existing == null) return null;
@@ -43,7 +45,7 @@ namespace ProductService.Repositorios
             return existing;
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task<bool> Delete(Guid id)
         {
             var entity = await _db.DatosM2.FindAsync(id);
             if (entity == null) return false;

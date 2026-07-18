@@ -28,8 +28,8 @@ namespace ProductService.Controllers
             return Ok(obtenerDat);
         }
 
-        [HttpGet("{id:int}")]
-        public async Task<IActionResult> GetDatosM2Id(int id)
+        [HttpGet("{id:Guid}")]
+        public async Task<IActionResult> GetDatosM2Id(Guid id)
         {
             var datoM2 = await _datosRepository.GetById(id);
             if (datoM2 == null)
@@ -57,8 +57,8 @@ namespace ProductService.Controllers
             }
         }
 
-        [HttpPut("{id:int}")]
-        public async Task<IActionResult> Update(int id, [FromBody] DatosM2 dto)
+        [HttpPut("{id:Guid}")]
+        public async Task<IActionResult> Update(Guid id, [FromBody] DatosM2 dto)
         {
             try
             {
@@ -75,8 +75,8 @@ namespace ProductService.Controllers
             }
         }
 
-        [HttpDelete("{id:int}")]
-        public async Task<IActionResult> Delete(int id)
+        [HttpDelete("{id:Guid}")]
+        public async Task<IActionResult> Delete(Guid id)
         {
             var eliminar = await _datosRepository.Delete(id);
             if (eliminar == false)

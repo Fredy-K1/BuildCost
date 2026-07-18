@@ -31,8 +31,8 @@ namespace ProductService.Controllers
             return Ok(obtenerMat);
         }
 
-        [HttpGet("{id:int}")]
-        public async Task<IActionResult> GetMaterialId(int id)
+        [HttpGet("{id:Guid}")]
+        public async Task<IActionResult> GetMaterialId(Guid id)
         {
             var material = await _materialRepository.GetById(id);
             if (material == null)
@@ -60,8 +60,8 @@ namespace ProductService.Controllers
             }
         }
 
-        [HttpPut("{id:int}")]
-        public async Task<IActionResult> Update(int id, [FromBody] Material dto)
+        [HttpPut("{id:Guid}")]
+        public async Task<IActionResult> Update(Guid id, [FromBody] Material dto)
         {
             try
             {
@@ -79,15 +79,15 @@ namespace ProductService.Controllers
             }
         }
 
-        [HttpDelete("{id:int}")]
-        public async Task<IActionResult> Delete(int id)
+        [HttpDelete("{id:Guid}")]
+        public async Task<IActionResult> Delete(Guid id)
         {
-            var eliminar = await _materialRepository.DeleteById(id);
-            if (eliminar == null)
+            var eliminado = await _materialRepository.DeleteById(id);
+            if (!eliminado)
             {
                 return NotFound(new { message = "Id para eliminar no encontrado" });
             }
-            return Ok();
+            return Ok(new {message = "Dato M2 eliminado."});
         }
 
 

@@ -30,8 +30,8 @@ namespace ProductService.Controllers
             return Ok(obtenerProd);
         }
 
-        [HttpGet("{id:int}")]
-        public async Task<IActionResult> GetProductId(int id)
+        [HttpGet("{id:Guid}")]
+        public async Task<IActionResult> GetProductId(Guid id)
         {
             var producto = await _productRepository.GetById(id);
             if (producto == null)
@@ -59,8 +59,8 @@ namespace ProductService.Controllers
             }
         }
 
-        [HttpPut("{id:int}")]
-        public async Task<IActionResult> Update(int id, [FromBody] Product dto)
+        [HttpPut("{id:Guid}")]
+        public async Task<IActionResult> Update(Guid id, [FromBody] Product dto)
         {
             try
             {
@@ -77,8 +77,8 @@ namespace ProductService.Controllers
             }
         }
 
-        [HttpDelete("{id:int}")]
-        public async Task<IActionResult> Delete(int id)
+        [HttpDelete("{id:Guid}")]
+        public async Task<IActionResult> Delete(Guid id)
         {
             var eliminar = await _productRepository.Delete(id);
             if (eliminar == false)

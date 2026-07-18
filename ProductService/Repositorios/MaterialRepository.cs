@@ -14,7 +14,7 @@ namespace ProductService.Repositorios
         public async Task<IEnumerable<Material>> GetAll()
             => await _db.Materials.ToListAsync();
 
-        public async Task<Material?> GetById(int id)
+        public async Task<Material?> GetById(Guid id)
             => await _db.Materials.FindAsync(id);
 
         public async Task<Material?> Create(Material material)
@@ -22,6 +22,8 @@ namespace ProductService.Repositorios
 
             if (material.Price <= 0)
                 throw new ArgumentException("El precio del material debe ser mayor a cero.");
+            if (material.Id == Guid.Empty)
+                material.Id = Guid.NewGuid();
 
             _db.Materials.Add(material);
             await _db.SaveChangesAsync();
@@ -44,7 +46,7 @@ namespace ProductService.Repositorios
             return existing;
         }
 
-        public async Task<bool> DeleteById(int id)
+        public async Task<bool> DeleteById(Guid id)
         {
             var material = await _db.Materials.FindAsync(id);
             if (material == null) return false;
