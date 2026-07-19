@@ -58,6 +58,7 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> ActualizarPerfil(Guid id, [FromBody] UpdateProfileRequest request)
     {
         var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+
         await _authService.UpdatePerfilAsync(userId, request);
 
         return Ok(new
@@ -73,5 +74,19 @@ public class AuthController : ControllerBase
         if (user == null)
             return NotFound();
         return Ok(user);
+    }
+
+    [Authorize]
+    [HttpDelete("eliminar")]
+    public async Task<IActionResult> EliminarPerfil()
+    {
+        var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+
+        await _authService.DeleteAsync(userId);
+
+        return Ok(new
+        {
+            Message = "Usuario eliminado correctamente"
+        });
     }
 }

@@ -11,4 +11,5 @@ public interface IAuthService
     Task<List<User>> GetUsersAsync();
     Task<User?> PerfilAsync(Guid id);
     Task UpdatePerfilAsync(Guid userId, UpdateProfileRequest request);
+    Task DeleteAsync(Guid userId);
 }

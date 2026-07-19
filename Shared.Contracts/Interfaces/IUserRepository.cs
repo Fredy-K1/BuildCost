@@ -9,4 +9,5 @@ public interface IUserRepository
     Task<User> AddAsync(User user);
     Task<bool> UpdatePerfilAsync(User user);
     Task<List<User>> GetAllAsync();
+    Task DeleteAsync(User user);
 }

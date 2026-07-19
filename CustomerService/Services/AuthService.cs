@@ -26,7 +26,7 @@ public class AuthService : IAuthService
             Telefono = request.Telefono,
             Email = request.Email,
             Password = EncryptionService.HashSHA256(request.Password),
-            Role = UserRole.Cliente
+            Role = request.Role
         };
 
         await _userRepository.AddAsync(user);
@@ -86,5 +86,14 @@ public class AuthService : IAuthService
         user.Amaterno = request.Amaterno;
         user.Telefono = request.Telefono;
         await _userRepository.UpdatePerfilAsync(user);
+    }
+    public async Task DeleteAsync(Guid userId)
+    {
+        var user = await _userRepository.GetByIdAsync(userId);
+
+        if (user == null)
+            throw new Exception("Usuario no encontrado.");
+
+        await _userRepository.DeleteAsync(user);
     }
 }
