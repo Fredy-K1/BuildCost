@@ -1,4 +1,5 @@
-﻿using Shared.Contracts.Enums;
+﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using Shared.Contracts.Enums;
 
 namespace Shared.Contracts.DTOs.Auth;
 
@@ -10,5 +11,6 @@ public class RegisterRequest
     public string Telefono { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
     public string Password { get; set; } = string.Empty;
+    public string Municipio {  get; set; } = string.Empty;
     public UserRole Role { get; set; }
 }

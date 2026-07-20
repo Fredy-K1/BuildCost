@@ -6,4 +6,5 @@ public class UpdateProfileRequest
     public string Apaterno { get; set; } = string.Empty;
     public string Amaterno { get; set; } = string.Empty;
     public string Telefono { get; set; } = string.Empty;
+    public string Municipio { get; set; } = string.Empty;
 }
