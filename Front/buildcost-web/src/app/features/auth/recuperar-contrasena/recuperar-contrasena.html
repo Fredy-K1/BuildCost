@@ -1,0 +1,26 @@
+<div>
+    <img width="40" height="40" src="/assets/img/edificio.png" alt="building"/>
+    
+    <h1>Recuperar Contraseña</h1>
+    <p>Ingresa tu correo y nueva contraseña</p>
+    
+    <form (ngSubmit)="recuperar()">
+        <label>Correo Electrónico</label>
+        <input type="email" [(ngModel)]="datos.email" name="email" placeholder="tu@correo.com" required>
+        
+        <label>Nueva Contraseña</label>
+        <input type="password" [(ngModel)]="datos.nuevaContrasena" name="nuevaContrasena" placeholder="********" required>
+        
+        <p *ngIf="errorMsg">
+            {{ errorMsg }}
+        </p>
+        
+        <button type="submit" [disabled]="loading">
+            {{ loading ? 'Guardando...' : 'Guardar' }}
+        </button>
+    </form>
+    
+    <p>
+        <a routerLink="/login">← Volver al inicio de sesión</a>
+    </p>
+</div>

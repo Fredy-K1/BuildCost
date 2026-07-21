@@ -1,0 +1,8 @@
+<app-sidebar *ngIf="showSidebar()" [isCollapsed]="isSidebarCollapsed()" (toggle)="toggleSidebar()"></app-sidebar>
+
+<app-navbar-user *ngIf="showNavbarUser()"></app-navbar-user>
+
+<main [class.main-content]="showSidebar() || showNavbarUser()"
+  [class.collapsed]="showSidebar() && isSidebarCollapsed()">
+  <router-outlet></router-outlet>
+</main>

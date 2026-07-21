@@ -1,0 +1,74 @@
+<header>
+  <h1>Mi perfil</h1>
+  <button type="button" (click)="cerrarSesion()">Cerrar sesión</button>
+</header>
+
+<div>
+  <div *ngIf="errorMsg()">
+    {{ errorMsg() }}
+  </div>
+  <div *ngIf="successMsg()">
+    {{ successMsg() }}
+  </div>
+  <div *ngIf="loading()">
+    Cargando perfil...
+  </div>
+  
+  <div *ngIf="!loading() && perfil() as usuario">
+    
+    <aside>
+      <div>{{ iniciales() }}</div>
+      <h2>{{ nombreCompleto() }}</h2>
+      <span>{{ usuario.role }}</span>
+      <br>
+      <span>{{ usuario.email }}</span>
+      <p>Estado de la cuenta: Activa</p>
+    </aside>
+
+    <main>
+      <form #perfilForm="ngForm" (ngSubmit)="guardarPerfil()">
+        
+        <section>
+          <h3>Información personal</h3>
+          <button *ngIf="!editando()" type="button" (click)="activarEdicion()">Editar perfil</button>
+          
+          <br><br>
+          <label for="profileName">Nombre(s)</label>
+          <input id="profileName" name="profileName" type="text" placeholder="Nombre" [(ngModel)]="formulario.name" [disabled]="!editando() || saving()" required>
+          
+          <br><br>
+          <label for="profileApaterno">Apellido paterno</label>
+          <input id="profileApaterno" name="profileApaterno" type="text" placeholder="Apellido paterno" [(ngModel)]="formulario.apaterno" [disabled]="!editando() || saving()" required>
+          
+          <br><br>
+          <label for="profileAmaterno">Apellido materno</label>
+          <input id="profileAmaterno" name="profileAmaterno" type="text" placeholder="Apellido materno" [(ngModel)]="formulario.amaterno" [disabled]="!editando() || saving()">
+          
+          <br><br>
+          <label for="profileTelefono">Teléfono / WhatsApp</label>
+          <input id="profileTelefono" name="profileTelefono" type="tel" placeholder="Ej. 7831234567" [(ngModel)]="formulario.telefono" [disabled]="!editando() || saving()" required>
+        </section>
+
+        <section>
+          <h3>Información de la cuenta</h3>
+          
+          <label for="profileEmail">Correo electrónico</label>
+          <input id="profileEmail" type="email" [value]="usuario.email" disabled>
+          
+          <br><br>
+          <label for="profileRole">Tipo de usuario</label>
+          <input id="profileRole" type="text" [value]="usuario.role" disabled>
+        </section>
+
+        <div *ngIf="editando()">
+          <br>
+          <button type="button" [disabled]="saving()" (click)="cancelarEdicion()">Cancelar</button>
+          <button type="submit" [disabled]="saving() || perfilForm.invalid">
+            {{ saving() ? 'Guardando...' : 'Guardar cambios' }}
+          </button>
+        </div>
+
+      </form>
+    </main>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<div>
+    <img src="/src/assets/img/pico.png" alt="pickaxe">
+    <span>BuildCost</span>
+    
+    <h1>Presupuestos de Albañilería</h1>
+    <p>Controla costos, materiales y obras</p>
+    
+    <form (ngSubmit)="login()" onsubmit="return false;">
+        <label>Correo electrónico</label>
+        <input type="email" [(ngModel)]="credenciales.email" name="email" placeholder="tu@correo.com" required>
+        
+        <label>Contraseña</label>
+        <input type="password" [(ngModel)]="credenciales.password" name="password" placeholder="********" required>
+        
+        <a routerLink="/recuperar-contrasena">¿Olvidaste tu contraseña?</a>
+        
+        <p *ngIf="errorMsg">
+            {{ errorMsg }}
+        </p>
+        
+        <button type="submit" [disabled]="loading">
+            {{ loading ? 'Iniciando...' : 'Iniciar Sesión' }}
+        </button>
+        
+        <br><br>
+        
+        <a routerLink="/registro">¿No tienes una cuenta?</a>
+    </form>
+</div>

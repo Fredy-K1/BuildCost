@@ -1,0 +1,77 @@
+<header>
+  <h1>Datos por m²</h1>
+</header>
+
+<div>
+  <div *ngIf="errorMsg()">
+    {{ errorMsg() }}
+  </div>
+  <div *ngIf="successMsg()">
+    {{ successMsg() }}
+  </div>
+
+  <h2>Rendimientos por m²</h2>
+  
+  <input type="text" placeholder="Buscar concepto..." [ngModel]="busqueda()" (ngModelChange)="busqueda.set($event)">
+  
+  <button type="button" (click)="abrirModalNuevo()">Agregar registro</button>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Material / Concepto</th>
+        <th>Descripción</th>
+        <th>Precio por m²</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="loading()">
+        <td colspan="4">Cargando datos por m²...</td>
+      </tr>
+      <tr *ngIf="!loading() && datosFiltrados().length === 0">
+        <td colspan="4">No se encontraron registros.</td>
+      </tr>
+      <tr *ngFor="let dato of datosFiltrados()">
+        <td>{{ dato.dataType }}</td>
+        <td>{{ dato.description || 'Sin descripción' }}</td>
+        <td>{{ dato.value | currency: 'MXN' : 'symbol' : '1.2-2' }} / m²</td>
+        <td>
+          <button type="button" title="Editar" (click)="abrirModalEditar(dato)">Editar</button>
+          <button type="button" title="Eliminar" (click)="eliminarDato(dato)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div>
+    <button type="button" disabled>Anterior</button>
+    <span>{{ datosFiltrados().length }} registros</span>
+    <button type="button" disabled>Siguiente</button>
+  </div>
+</div>
+
+<div *ngIf="modalAbierto()" (click)="cerrarModal()">
+  <div (click)="$event.stopPropagation()">
+    <h2>{{ editandoId() === null ? 'Nuevo registro por m²' : 'Editar registro por m²' }}</h2>
+    <button type="button" (click)="cerrarModal()" [disabled]="saving()">X</button>
+
+    <form #datoForm="ngForm" (ngSubmit)="guardarDato()">
+      
+      <label for="dataType">Material / Concepto</label>
+      <input id="dataType" name="dataType" type="text" placeholder="Ej. Instalación de loseta" [(ngModel)]="formulario.dataType" required>
+
+      <label for="description">Descripción</label>
+      <textarea id="description" name="description" placeholder="Ej. Incluye preparación e instalación" [(ngModel)]="formulario.description" rows="3"></textarea>
+
+      <label for="value">Precio unitario por m²</label>
+      <input id="value" name="value" type="number" placeholder="0.00" [(ngModel)]="formulario.value" min="0.01" step="0.01" required>
+
+      <button type="button" (click)="cerrarModal()" [disabled]="saving()">Cancelar</button>
+      <button type="submit" [disabled]="saving() || datoForm.invalid">
+        {{ saving() ? 'Guardando...' : editandoId() === null ? 'Guardar registro' : 'Actualizar registro' }}
+      </button>
+
+    </form>
+  </div>
+</div>

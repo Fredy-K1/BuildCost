@@ -1,0 +1,78 @@
+<header>
+  <h1>Mis materiales</h1>
+</header>
+
+<div>
+  <div *ngIf="errorMsg()">
+    {{ errorMsg() }}
+  </div>
+  <div *ngIf="successMsg()">
+    {{ successMsg() }}
+  </div>
+
+  <h2>Catálogo de materiales</h2>
+  
+  <input type="text" placeholder="Buscar material..." [ngModel]="busqueda()" (ngModelChange)="busqueda.set($event)">
+  
+  <button type="button" (click)="abrirModalNuevo()">Agregar material</button>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Material</th>
+        <th>Unidad / Especificación</th>
+        <th>Precio</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="loading()">
+        <td colspan="4">Cargando materiales...</td>
+      </tr>
+      <tr *ngIf="!loading() && materialesFiltrados().length === 0">
+        <td colspan="4">No se encontraron materiales.</td>
+      </tr>
+      <tr *ngFor="let material of materialesFiltrados()">
+        <td>{{ material.name }}</td>
+        <td>{{ material.unit }}</td>
+        <td>{{ material.price | currency:'MXN':'symbol':'1.2-2' }}</td>
+        <td>
+          <button type="button" title="Editar" (click)="abrirModalEditar(material)">Editar</button>
+          <button type="button" title="Eliminar" [disabled]="deletingId() === material.id" (click)="eliminarMaterial(material)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <div>
+    <button type="button" disabled>Anterior</button>
+    <span>{{ materialesFiltrados().length }} {{ materialesFiltrados().length === 1 ? 'material' : 'materiales' }}</span>
+    <button type="button" disabled>Siguiente</button>
+  </div>
+</div>
+
+<div *ngIf="modalAbierto()" (click)="cerrarModal()">
+  <div role="dialog" aria-modal="true" (click)="$event.stopPropagation()">
+    <h2>{{ editandoId() === null ? 'Nuevo material' : 'Editar material' }}</h2>
+    <button type="button" aria-label="Cerrar" [disabled]="saving()" (click)="cerrarModal()">X</button>
+
+    <form #materialForm="ngForm" (ngSubmit)="guardarMaterial()">
+      
+      <label for="materialName">Nombre del material</label>
+      <input id="materialName" name="materialName" type="text" placeholder="Ej. Cemento gris" [(ngModel)]="formulario.name" required>
+
+      <label for="materialUnit">Unidad / Especificación</label>
+      <input id="materialUnit" name="materialUnit" type="text" placeholder="Ej. Bulto de 50 kg" [(ngModel)]="formulario.unit" required>
+
+      <label for="materialPrice">Precio unitario</label>
+      <input id="materialPrice" name="materialPrice" type="number" placeholder="0.00" min="0.01" step="0.01" [(ngModel)]="formulario.price" required>
+
+      <button type="button" [disabled]="saving()" (click)="cerrarModal()">Cancelar</button>
+      <button type="submit" [disabled]="saving() || materialForm.invalid">
+        <ng-container *ngIf="saving()">Guardando...</ng-container>
+        <ng-container *ngIf="!saving()">{{ editandoId() === null ? 'Guardar material' : 'Actualizar material' }}</ng-container>
+      </button>
+
+    </form>
+  </div>
+</div>

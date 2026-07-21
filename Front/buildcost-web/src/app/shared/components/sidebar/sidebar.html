@@ -1,0 +1,30 @@
+<nav [class.collapsed]="isCollapsed">
+  <header>
+    <h2>BuildCost</h2>
+    <span>CONTRATISTA</span>
+    <button type="button" aria-label="Menú" (click)="toggleMenu()">
+      Menú
+    </button>
+  </header>
+
+  <ul>
+    <li>
+      <a routerLink="/inicio" routerLinkActive="active">Inicio</a>
+    </li>
+    <li>
+      <a routerLink="/materiales" routerLinkActive="active">Materiales</a>
+    </li>
+    <li>
+      <a routerLink="/datosM2" routerLinkActive="active">Datos por m²</a>
+    </li>
+    <li>
+      <a routerLink="/proyectos" routerLinkActive="active">Proyectos</a>
+    </li>
+    <li>
+      <a routerLink="/perfil" routerLinkActive="active">Mi perfil</a>
+    </li>
+  </ul>
+</nav>
+
+<!-- Capa de fondo para cuando el menú está abierto en móvil -->
+<div *ngIf="!isCollapsed" (click)="toggleMenu()"></div>

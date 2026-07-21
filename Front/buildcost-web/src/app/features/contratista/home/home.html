@@ -1,0 +1,120 @@
+<header>
+  <h1>Inicio</h1>
+</header>
+
+<div>
+  <ul>
+    <li>Proyectos disponibles: 12 (Tu zona)</li>
+    <li>Cotizaciones enviadas: 4 (Este mes)</li>
+    <li>Cotizaciones aceptadas: 1 (Activo)</li>
+    <li>Cotizaciones en proceso: 3 (Pendientes)</li>
+  </ul>
+
+  <div>
+    <select>
+      <option>Túxpam de Rodríguez Cano</option>
+      <option>Poza Rica</option>
+      <option>Xalapa</option>
+      <option>Boca del Río</option>
+      <option>Veracruz</option>
+    </select>
+    <select>
+      <option>Todos los tipos</option>
+      <option>Completo</option>
+      <option>Solo mano de obra</option>
+      <option>Solo material</option>
+    </select>
+    <button type="button">Todos</button>
+    <button type="button">Nuevos</button>
+    <button type="button">Sin cotizar</button>
+    <button type="button">Por expirar</button>
+    <span>12 resultados</span>
+  </div>
+
+  <article>
+    <h3>Construcción de vivienda</h3>
+    <span>Túxpam de Rodríguez Cano</span>
+    <p>Proyecto de construcción disponible para cotización</p>
+    <button type="button" (click)="abrirModal()">Elaborar propuesta</button>
+  </article>
+</div>
+
+<div *ngIf="modalAbierto()" (click)="cerrarModal()">
+  <section role="dialog" aria-modal="true" (click)="$event.stopPropagation()">
+    <h2>Presupuesto detallado</h2>
+    <button type="button" aria-label="Cerrar" (click)="cerrarModal()">X</button>
+
+    <h4>Construcción de vivienda</h4>
+    <p>Desglosa los costos para que el cliente vea exactamente qué está pagando.</p>
+
+    <label for="mensajeCliente">Mensaje para el cliente</label>
+    <textarea id="mensajeCliente" placeholder="Ej. El tiempo estimado de la obra es de 2 semanas..."></textarea>
+
+    <section>
+      <h3>Materiales</h3>
+      <button type="button">+ Añadir material</button>
+      
+      <table>
+        <thead>
+          <tr>
+            <th>Descripción del material</th>
+            <th>Cant.</th>
+            <th>Precio U.</th>
+            <th>Subtotal</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="text" placeholder="Ej. Bulto de cemento"></td>
+            <td><input type="number" min="1" placeholder="Cant."></td>
+            <td><input type="number" min="0" step="0.01" placeholder="$0.00"></td>
+            <td>$0.00</td>
+            <td><button type="button" title="Eliminar material">Eliminar</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h3>Mano de obra</h3>
+      <button type="button">+ Añadir servicio</button>
+      
+      <table>
+        <thead>
+          <tr>
+            <th>Descripción del servicio</th>
+            <th>Cant.</th>
+            <th>Precio U.</th>
+            <th>Subtotal</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="text" placeholder="Ej. M² de aplanado"></td>
+            <td><input type="number" min="1" placeholder="Cant."></td>
+            <td><input type="number" min="0" step="0.01" placeholder="$0.00"></td>
+            <td>$0.00</td>
+            <td><button type="button" title="Eliminar servicio">Eliminar</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <br>
+    <label for="costoTraslado">Costo de traslado / viáticos (opcional)</label>
+    <input id="costoTraslado" type="number" min="0" step="0.01" placeholder="0.00">
+
+    <br><br>
+    <div>
+      <span>Total de la propuesta: </span>
+      <strong>$0.00</strong>
+    </div>
+
+    <br>
+    <button type="button">Revisar contrapropuesta</button>
+    <button type="button" (click)="cerrarModal()">Cancelar</button>
+    <button type="button">Enviar propuesta al cliente</button>
+  </section>
+</div>

@@ -1,0 +1,104 @@
+<app-navbar-user></app-navbar-user>
+
+<h1>Mis proyectos</h1>
+<button (click)="abrirModalNuevo()">+ Nuevo proyecto</button>
+
+<h3>Estadísticas</h3>
+<ul>
+  <li>PROYECTOS ACTIVOS: 2 (En cotización)</li>
+  <li>COTIZACIONES RECIBIDAS: 8 (Este mes)</li>
+  <li>PROYECTOS COMPLETADOS: 1 (Histórico)</li>
+  <li>PRESUPUESTO ACEPTADO: $0 (Pendiente)</li>
+</ul>
+
+<h3>Mis proyectos recientes</h3>
+<p>Revisa el estado de tus proyectos y las cotizaciones</p>
+
+<div>
+  <span>#PRY-001</span> - <span>En cotización</span>
+  <h2>Casa habitación 3 recámaras</h2>
+  <p>Poza Rica, Veracruz</p>
+  <p>Terreno de 200 m². Construcción de casa con 3 recámaras, sala, comedor y 2 baños</p>
+  <ul>
+    <li>Área: 200 m²</li>
+    <li>Tipo: Completo</li>
+    <li>Plazo: 8 meses</li>
+  </ul>
+  <button>Cotizaciones</button>
+  <button (click)="abrirModalDetalle()">Detalle</button>
+</div>
+
+<hr>
+
+<div>
+  <span>#PRY-002</span> - <span>Activo</span>
+  <h2>Remodelación departamento</h2>
+  <p>CDMX</p>
+  <p>Remodelación completa de cocina y baño con acabados modernos.</p>
+  <ul>
+    <li>Área: 90 m²</li>
+    <li>Tipo: Remodelación</li>
+    <li>Plazo: 3 meses</li>
+  </ul>
+  <button>Cotizaciones</button>
+  <button (click)="abrirModalDetalle()">Detalle</button>
+</div>
+
+<div *ngIf="modalDetalleAbierto()">
+  <hr>
+  <h2>Detalles del Proyecto</h2>
+  <span>En cotización</span>
+  <button (click)="cerrarModalDetalle()">X</button>
+
+  <br><br>
+  <label>#PRY-001</label>
+  <h3>Casa habitación 3 recámaras</h3>
+  <p>Poza Rica, Veracruz</p>
+  
+  <label>Descripción</label>
+  <p>Terreno de 200 m². Construcción de casa con 3 recámaras, sala, comedor y 2 baños</p>
+  
+  <ul>
+    <li>Área: 200 m²</li>
+    <li>Tipo: Completo</li>
+    <li>Cotizaciones: 8 recibidas</li>
+  </ul>
+
+  <button (click)="cerrarModalDetalle()">Cerrar</button>
+  <hr>
+</div>
+
+<div *ngIf="modalNuevoAbierto()">
+  <hr>
+  <h2>Nuevo proyecto</h2>
+  <button (click)="cerrarModalNuevo()">X</button>
+
+  <form>
+    <label>Título del proyecto</label>
+    <input type="text" placeholder="Ej. Casa habitación 3 recámaras">
+    <br><br>
+
+    <label>Descripción</label>
+    <textarea rows="3" placeholder="Describe las características del proyecto"></textarea>
+    <br><br>
+
+    <label>Ubicación</label>
+    <input type="text" placeholder="Ej. Poza Rica, Veracruz">
+    <br><br>
+
+    <label>Área (m²)</label>
+    <input type="number" placeholder="0" min="0">
+    <br><br>
+
+    <label>Tipo de presupuesto</label>
+    <select>
+      <option>Completo</option>
+      <option>Solo mano de obra</option>
+    </select>
+    <br><br>
+
+    <button type="button" (click)="cerrarModalNuevo()">Cancelar</button>
+    <button type="button" (click)="cerrarModalNuevo()">Crear proyecto</button>
+  </form>
+  <hr>
+</div>

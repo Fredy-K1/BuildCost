@@ -1,0 +1,50 @@
+<div>
+    <img width="50" height="50" src="/assets/img/llave.png" alt="wrench"/>
+    
+    <h1>Crear Cuenta</h1>
+    <p>Regístrate para comenzar</p>
+    
+    <form (ngSubmit)="registrar()">
+        <h3>Datos Personales</h3>
+        
+        <label>Nombre(s) *</label>
+        <input type="text" [(ngModel)]="usuario.nombre" name="nombre" required>
+        
+        <label>Apellido Paterno *</label>
+        <input type="text" [(ngModel)]="usuario.apaterno" name="apaterno" required>
+        
+        <label>Apellido Materno</label>
+        <input type="text" [(ngModel)]="usuario.amaterno" name="amaterno">
+        
+        <label>Teléfono</label>
+        <input type="tel" [(ngModel)]="usuario.telefono" name="telefono">
+        
+        <h3>Datos de Cuenta</h3>
+        
+        <label>¿Qué deseas hacer? *</label>
+        <select name="tipo_usuario" [(ngModel)]="usuario.tipo_usuario" required>
+            <option value="">Selecciona una opción</option>
+            <option value="Cliente">Cliente</option>
+            <option value="Contratista">Proveedor / Contratista</option>
+        </select>
+        
+        <label>Correo electrónico *</label>
+        <input type="email" [(ngModel)]="usuario.correo" name="correo" required>
+        
+        <label>Contraseña *</label>
+        <input type="password" [(ngModel)]="usuario.password" name="password" required>
+        
+        <p *ngIf="errorMsg">
+            {{ errorMsg }}
+        </p>
+        
+        <button type="submit" [disabled]="loading">
+            {{ loading ? 'Registrando...' : 'Registrar' }}
+        </button>
+    </form>
+    
+    <p>
+        ¿Ya tienes una cuenta?
+        <a routerLink="/login">Inicia sesión</a>
+    </p>
+</div>
