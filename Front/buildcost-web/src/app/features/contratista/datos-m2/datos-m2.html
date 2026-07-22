@@ -1,77 +1,196 @@
-<header>
-  <h1>Datos por m²</h1>
-</header>
+<div class="p-4 sm:p-6 lg:p-8 space-y-6">
 
-<div>
-  <div *ngIf="errorMsg()">
-    {{ errorMsg() }}
-  </div>
-  <div *ngIf="successMsg()">
-    {{ successMsg() }}
-  </div>
+  <header class="pb-3 border-b border-[#E0DDD6]">
+    <h1 class="text-2xl font-medium text-[#1A1814]">Datos por m²</h1>
+    <p class="text-sm text-[#7C7770]">Gestiona los rendimientos y costos paramétricos por metro cuadrado.</p>
+  </header>
 
-  <h2>Rendimientos por m²</h2>
-  
-  <input type="text" placeholder="Buscar concepto..." [ngModel]="busqueda()" (ngModelChange)="busqueda.set($event)">
-  
-  <button type="button" (click)="abrirModalNuevo()">Agregar registro</button>
+  <div class="bg-white rounded-[16px] border border-[#E0DDD6] overflow-hidden">
 
-  <table>
-    <thead>
-      <tr>
-        <th>Material / Concepto</th>
-        <th>Descripción</th>
-        <th>Precio por m²</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngIf="loading()">
-        <td colspan="4">Cargando datos por m²...</td>
-      </tr>
-      <tr *ngIf="!loading() && datosFiltrados().length === 0">
-        <td colspan="4">No se encontraron registros.</td>
-      </tr>
-      <tr *ngFor="let dato of datosFiltrados()">
-        <td>{{ dato.dataType }}</td>
-        <td>{{ dato.description || 'Sin descripción' }}</td>
-        <td>{{ dato.value | currency: 'MXN' : 'symbol' : '1.2-2' }} / m²</td>
-        <td>
-          <button type="button" title="Editar" (click)="abrirModalEditar(dato)">Editar</button>
-          <button type="button" title="Eliminar" (click)="eliminarDato(dato)">Eliminar</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+    <div class="p-4 sm:p-5 flex flex-col sm:flex-row gap-4 justify-between items-center border-b border-[#E0DDD6]">
+      <div class="relative w-full sm:max-w-md">
+        <svg class="w-4 h-4 text-[#7C7770] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none"
+          stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <input type="text" placeholder="Buscar concepto o descripción..." [ngModel]="busqueda()"
+          (ngModelChange)="busqueda.set($event)"
+          class="w-full pl-10 pr-3 py-2 text-sm bg-white border border-[#E0DDD6] rounded-[10px] outline-none focus:border-[#1E3A5F] transition">
+      </div>
 
-  <div>
-    <button type="button" disabled>Anterior</button>
-    <span>{{ datosFiltrados().length }} registros</span>
-    <button type="button" disabled>Siguiente</button>
+      <button type="button" (click)="abrirModalNuevo()"
+        class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2 text-sm font-medium text-white bg-[#1E3A5F] hover:opacity-90 rounded-[10px] transition">
+        <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+        </svg>
+        Agregar registro
+      </button>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm text-left text-[#1A1814]">
+        <thead
+          class="text-[11px] uppercase bg-[#EDEBE5] text-[#7C7770] font-medium tracking-wider border-b border-[#E0DDD6]">
+          <tr>
+            <th class="px-6 py-3.5">Material / Concepto</th>
+            <th class="px-6 py-3.5">Descripción</th>
+            <th class="px-6 py-3.5 text-right">Precio por m²</th>
+            <th class="px-6 py-3.5 text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-[#E0DDD6]">
+
+          @if (loading()) {
+          <tr>
+            <td colspan="4" class="px-6 py-12 text-center text-[#7C7770]">
+              <div class="flex flex-col items-center justify-center gap-2">
+                <svg class="w-6 h-6 animate-spin text-[#1E3A5F]" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                  </path>
+                </svg>
+                <span>Cargando datos por m²...</span>
+              </div>
+            </td>
+          </tr>
+          }
+
+          @if (!loading() && datosFiltrados().length === 0) {
+          <tr>
+            <td colspan="4" class="px-6 py-12 text-center text-[#7C7770]">
+              <div class="flex flex-col items-center justify-center gap-2">
+                <svg class="w-10 h-10 text-[#7C7770]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                </svg>
+                <p>No se encontraron registros de rendimientos por m².</p>
+              </div>
+            </td>
+          </tr>
+          }
+
+          @for (dato of datosFiltrados(); track dato.id) {
+          <tr class="hover:bg-[#F5F4F0]/60 transition-colors">
+            <td class="px-6 py-4 font-medium">{{ dato.dataType }}</td>
+            <td class="px-6 py-4 text-[#7C7770]">{{ dato.description || 'Sin descripción' }}</td>
+            <td class="px-6 py-4 text-right font-mono font-medium">
+              {{ dato.value | currency:'MXN':'symbol':'1.2-2' }} <span class="text-xs font-normal text-[#7C7770]">/
+                m²</span>
+            </td>
+            <td class="px-6 py-4 text-center">
+              <div class="inline-flex items-center gap-1">
+                <button type="button" (click)="abrirModalEditar(dato)" title="Editar"
+                  class="p-2 rounded-[8px] text-[#1E3A5F] hover:bg-[#E6EEF6] transition">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                  </svg>
+                </button>
+                <button type="button" (click)="eliminarDato(dato)" title="Eliminar"
+                  class="p-2 rounded-[8px] text-[#B91C1C] hover:bg-[#FEF2F2] transition">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <div class="p-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-[#E0DDD6]">
+      <span class="text-xs font-mono text-[#7C7770]">
+        Mostrando <strong class="text-[#1A1814]">{{ datosFiltrados().length }}</strong> {{ datosFiltrados().length === 1
+        ? 'registro' : 'registros' }}
+      </span>
+      <div class="inline-flex gap-2">
+        <button type="button" disabled
+          class="px-3 py-1.5 text-xs font-medium text-[#1A1814] bg-white border border-[#E0DDD6] rounded-[8px] hover:bg-[#EDEBE5] disabled:opacity-40 transition">Anterior</button>
+        <button type="button" disabled
+          class="px-3 py-1.5 text-xs font-medium text-[#1A1814] bg-white border border-[#E0DDD6] rounded-[8px] hover:bg-[#EDEBE5] disabled:opacity-40 transition">Siguiente</button>
+      </div>
+    </div>
+
   </div>
 </div>
 
-<div *ngIf="modalAbierto()" (click)="cerrarModal()">
-  <div (click)="$event.stopPropagation()">
-    <h2>{{ editandoId() === null ? 'Nuevo registro por m²' : 'Editar registro por m²' }}</h2>
-    <button type="button" (click)="cerrarModal()" [disabled]="saving()">X</button>
+@if (modalAbierto()) {
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-[3px] overflow-y-auto"
+  (click)="cerrarModal()">
+  <div role="dialog" aria-modal="true" (click)="$event.stopPropagation()"
+    class="relative w-full max-w-lg bg-white rounded-[16px] border border-[#E0DDD6] shadow-xl overflow-hidden my-auto">
 
-    <form #datoForm="ngForm" (ngSubmit)="guardarDato()">
-      
-      <label for="dataType">Material / Concepto</label>
-      <input id="dataType" name="dataType" type="text" placeholder="Ej. Instalación de loseta" [(ngModel)]="formulario.dataType" required>
-
-      <label for="description">Descripción</label>
-      <textarea id="description" name="description" placeholder="Ej. Incluye preparación e instalación" [(ngModel)]="formulario.description" rows="3"></textarea>
-
-      <label for="value">Precio unitario por m²</label>
-      <input id="value" name="value" type="number" placeholder="0.00" [(ngModel)]="formulario.value" min="0.01" step="0.01" required>
-
-      <button type="button" (click)="cerrarModal()" [disabled]="saving()">Cancelar</button>
-      <button type="submit" [disabled]="saving() || datoForm.invalid">
-        {{ saving() ? 'Guardando...' : editandoId() === null ? 'Guardar registro' : 'Actualizar registro' }}
+    <div class="flex items-center justify-between p-5 border-b border-[#E0DDD6]">
+      <div>
+        <h3 class="text-lg font-medium text-[#1A1814]">{{ editandoId() === null ? 'Nuevo registro por m²' : 'Editar
+          registro por m²' }}</h3>
+        <p class="text-xs text-[#7C7770]">Define el costo y detalle estimado por metro cuadrado.</p>
+      </div>
+      <button type="button" (click)="cerrarModal()" [disabled]="saving()"
+        class="p-1.5 text-[#7C7770] hover:bg-[#EDEBE5] hover:text-[#1A1814] rounded-[8px] transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
       </button>
+    </div>
+
+    <!-- Formulario -->
+    <form #datoForm="ngForm" (ngSubmit)="guardarDato()" class="p-5 space-y-4">
+
+      <div class="space-y-1">
+        <label for="dataType" class="text-xs font-medium text-[#7C7770]">Material / Concepto</label>
+        <input id="dataType" name="dataType" type="text" required [(ngModel)]="formulario.dataType"
+          placeholder="Ej. Instalación de loseta"
+          class="w-full p-2.5 text-sm bg-white border border-[#E0DDD6] rounded-[10px] outline-none focus:border-[#1E3A5F] transition">
+      </div>
+
+      <div class="space-y-1">
+        <label for="description" class="text-xs font-medium text-[#7C7770]">Descripción</label>
+        <textarea id="description" name="description" rows="3" [(ngModel)]="formulario.description"
+          placeholder="Ej. Incluye preparación de mezcla, mano de obra y emboquillado"
+          class="w-full p-2.5 text-sm bg-white border border-[#E0DDD6] rounded-[10px] outline-none focus:border-[#1E3A5F] transition resize-y"></textarea>
+      </div>
+
+      <div class="space-y-1">
+        <label for="value" class="text-xs font-medium text-[#7C7770]">Precio unitario por m² ($ MXN)</label>
+        <div class="relative">
+          <span
+            class="absolute left-3.5 top-1/2 -translate-y-1/2 text-sm text-[#7C7770] font-medium pointer-events-none">$</span>
+          <input id="value" name="value" type="number" required min="0.01" step="0.01" [(ngModel)]="formulario.value"
+            placeholder="0.00"
+            class="w-full pl-8 pr-3 py-2.5 text-sm font-mono bg-white border border-[#E0DDD6] rounded-[10px] outline-none focus:border-[#1E3A5F] transition">
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="flex justify-end gap-3 pt-4 border-t border-[#E0DDD6] mt-6">
+        <button type="button" (click)="cerrarModal()" [disabled]="saving()"
+          class="px-5 py-2.5 text-sm font-medium text-[#1A1814] bg-white border border-[#E0DDD6] rounded-[10px] hover:bg-[#EDEBE5] transition">
+          Cancelar
+        </button>
+
+        <button type="submit" [disabled]="saving() || datoForm.invalid"
+          class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-white bg-[#1E3A5F] hover:opacity-90 rounded-[10px] disabled:opacity-40 transition">
+          @if (saving()) {
+          <svg class="w-4 h-4 animate-spin shrink-0" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+            </path>
+          </svg>
+          <span>Guardando...</span>
+          } @else {
+          <span>{{ editandoId() === null ? 'Guardar registro' : 'Actualizar registro' }}</span>
+          }
+        </button>
+      </div>
 
     </form>
   </div>
 </div>
+}

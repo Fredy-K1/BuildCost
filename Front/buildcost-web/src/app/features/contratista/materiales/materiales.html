@@ -1,78 +1,204 @@
-<header>
-  <h1>Mis materiales</h1>
-</header>
+<div class="p-4 sm:p-6 lg:p-8 space-y-6">
 
-<div>
-  <div *ngIf="errorMsg()">
-    {{ errorMsg() }}
-  </div>
-  <div *ngIf="successMsg()">
-    {{ successMsg() }}
-  </div>
+  <header class="pb-3 border-b border-[#E0DDD6]">
+    <h1 class="text-2xl font-medium text-[#1A1814]">Mis materiales</h1>
+    <p class="text-sm text-[#7C7770]">Gestiona tu catálogo de insumos, unidades y precios unitarios.</p>
+  </header>
 
-  <h2>Catálogo de materiales</h2>
-  
-  <input type="text" placeholder="Buscar material..." [ngModel]="busqueda()" (ngModelChange)="busqueda.set($event)">
-  
-  <button type="button" (click)="abrirModalNuevo()">Agregar material</button>
+  <div class="bg-white rounded-[16px] border border-[#E0DDD6] overflow-hidden">
 
-  <table>
-    <thead>
-      <tr>
-        <th>Material</th>
-        <th>Unidad / Especificación</th>
-        <th>Precio</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngIf="loading()">
-        <td colspan="4">Cargando materiales...</td>
-      </tr>
-      <tr *ngIf="!loading() && materialesFiltrados().length === 0">
-        <td colspan="4">No se encontraron materiales.</td>
-      </tr>
-      <tr *ngFor="let material of materialesFiltrados()">
-        <td>{{ material.name }}</td>
-        <td>{{ material.unit }}</td>
-        <td>{{ material.price | currency:'MXN':'symbol':'1.2-2' }}</td>
-        <td>
-          <button type="button" title="Editar" (click)="abrirModalEditar(material)">Editar</button>
-          <button type="button" title="Eliminar" [disabled]="deletingId() === material.id" (click)="eliminarMaterial(material)">Eliminar</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  
-  <div>
-    <button type="button" disabled>Anterior</button>
-    <span>{{ materialesFiltrados().length }} {{ materialesFiltrados().length === 1 ? 'material' : 'materiales' }}</span>
-    <button type="button" disabled>Siguiente</button>
+    <div class="p-4 sm:p-5 flex flex-col sm:flex-row gap-4 justify-between items-center border-b border-[#E0DDD6]">
+      <div class="relative w-full sm:max-w-md">
+        <svg class="w-4 h-4 text-[#7C7770] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none"
+          stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <input type="text" placeholder="Buscar material por nombre o unidad..." [ngModel]="busqueda()"
+          (ngModelChange)="busqueda.set($event)"
+          class="w-full pl-10 pr-3 py-2 text-sm bg-white border border-[#E0DDD6] rounded-[10px] outline-none focus:border-[#1E3A5F] transition">
+      </div>
+
+      <button type="button" (click)="abrirModalNuevo()"
+        class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2 text-sm font-medium text-white bg-[#1E3A5F] hover:opacity-90 rounded-[10px] transition">
+        <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+        </svg>
+        <span>Agregar material</span>
+      </button>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm text-left text-[#1A1814]">
+        <thead
+          class="text-[11px] uppercase bg-[#EDEBE5] text-[#7C7770] font-medium tracking-wider border-b border-[#E0DDD6]">
+          <tr>
+            <th class="px-6 py-3.5">Material</th>
+            <th class="px-6 py-3.5">Unidad / Especificación</th>
+            <th class="px-6 py-3.5 text-right">Precio</th>
+            <th class="px-6 py-3.5 text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-[#E0DDD6]">
+
+
+          @if (loading()) {
+          <tr>
+            <td colspan="4" class="px-6 py-12 text-center text-[#7C7770]">
+              <div class="flex flex-col items-center justify-center gap-2">
+                <svg class="w-6 h-6 animate-spin text-[#1E3A5F]" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                  </path>
+                </svg>
+                <span>Cargando catálogo...</span>
+              </div>
+            </td>
+          </tr>
+          }
+
+
+          @if (!loading() && materialesFiltrados().length === 0) {
+          <tr>
+            <td colspan="4" class="px-6 py-12 text-center text-[#7C7770]">
+              <div class="flex flex-col items-center justify-center gap-2">
+                <svg class="w-10 h-10 text-[#7C7770]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                </svg>
+                <p>No se encontraron materiales registrados.</p>
+              </div>
+            </td>
+          </tr>
+          }
+
+          @for (material of materialesFiltrados(); track material.id) {
+          <tr class="hover:bg-[#F5F4F0]/60 transition-colors">
+            <td class="px-6 py-4 font-medium">{{ material.name }}</td>
+
+            <td class="px-6 py-4">
+              <span
+                class="px-2.5 py-0.5 text-xs font-medium text-[#1A1814] bg-[#EDEBE5] rounded-md border border-[#E0DDD6]">
+                {{ material.unit }}
+              </span>
+            </td>
+
+            <td class="px-6 py-4 text-right font-mono font-medium">
+              {{ material.price | currency:'MXN':'symbol':'1.2-2' }}
+            </td>
+
+            <td class="px-6 py-4 text-center">
+              <div class="inline-flex items-center gap-1">
+                <button type="button" (click)="abrirModalEditar(material)" title="Editar"
+                  class="p-2 rounded-[8px] text-[#1E3A5F] hover:bg-[#E6EEF6] transition">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                  </svg>
+                </button>
+                <button type="button" (click)="eliminarMaterial(material)" [disabled]="deletingId() === material.id"
+                  title="Eliminar"
+                  class="p-2 rounded-[8px] text-[#B91C1C] hover:bg-[#FEF2F2] disabled:opacity-40 transition">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <div class="p-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-[#E0DDD6]">
+      <span class="text-xs font-mono text-[#7C7770]">
+        Mostrando <strong class="text-[#1A1814]">{{ materialesFiltrados().length }}</strong> {{
+        materialesFiltrados().length === 1 ? 'material' : 'materiales' }}
+      </span>
+      <div class="inline-flex gap-2">
+        <button type="button" disabled
+          class="px-3 py-1.5 text-xs font-medium text-[#1A1814] bg-white border border-[#E0DDD6] rounded-[8px] hover:bg-[#EDEBE5] disabled:opacity-40 transition">Anterior</button>
+        <button type="button" disabled
+          class="px-3 py-1.5 text-xs font-medium text-[#1A1814] bg-white border border-[#E0DDD6] rounded-[8px] hover:bg-[#EDEBE5] disabled:opacity-40 transition">Siguiente</button>
+      </div>
+    </div>
+
   </div>
 </div>
 
-<div *ngIf="modalAbierto()" (click)="cerrarModal()">
-  <div role="dialog" aria-modal="true" (click)="$event.stopPropagation()">
-    <h2>{{ editandoId() === null ? 'Nuevo material' : 'Editar material' }}</h2>
-    <button type="button" aria-label="Cerrar" [disabled]="saving()" (click)="cerrarModal()">X</button>
+@if (modalAbierto()) {
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-[3px] overflow-y-auto"
+  (click)="cerrarModal()">
+  <div role="dialog" aria-modal="true" (click)="$event.stopPropagation()"
+    class="relative w-full max-w-lg bg-white rounded-[16px] border border-[#E0DDD6] shadow-xl overflow-hidden my-auto">
 
-    <form #materialForm="ngForm" (ngSubmit)="guardarMaterial()">
-      
-      <label for="materialName">Nombre del material</label>
-      <input id="materialName" name="materialName" type="text" placeholder="Ej. Cemento gris" [(ngModel)]="formulario.name" required>
-
-      <label for="materialUnit">Unidad / Especificación</label>
-      <input id="materialUnit" name="materialUnit" type="text" placeholder="Ej. Bulto de 50 kg" [(ngModel)]="formulario.unit" required>
-
-      <label for="materialPrice">Precio unitario</label>
-      <input id="materialPrice" name="materialPrice" type="number" placeholder="0.00" min="0.01" step="0.01" [(ngModel)]="formulario.price" required>
-
-      <button type="button" [disabled]="saving()" (click)="cerrarModal()">Cancelar</button>
-      <button type="submit" [disabled]="saving() || materialForm.invalid">
-        <ng-container *ngIf="saving()">Guardando...</ng-container>
-        <ng-container *ngIf="!saving()">{{ editandoId() === null ? 'Guardar material' : 'Actualizar material' }}</ng-container>
+    <div class="flex items-center justify-between p-5 border-b border-[#E0DDD6]">
+      <div>
+        <h2 class="text-lg font-medium text-[#1A1814]">{{ editandoId() === null ? 'Nuevo material' : 'Editar material'
+          }}</h2>
+        <p class="text-xs text-[#7C7770]">Ingresa la información clave para tus cálculos presupuestales.</p>
+      </div>
+      <button type="button" (click)="cerrarModal()" [disabled]="saving()"
+        class="p-1.5 text-[#7C7770] hover:bg-[#EDEBE5] hover:text-[#1A1814] rounded-[8px] transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
       </button>
+    </div>
+
+    <form #materialForm="ngForm" (ngSubmit)="guardarMaterial()" class="p-5 space-y-4">
+
+      <div class="space-y-1">
+        <label for="materialName" class="text-xs font-medium text-[#7C7770]">Nombre del material</label>
+        <input id="materialName" name="materialName" type="text" required [(ngModel)]="formulario.name"
+          placeholder="Ej. Cemento gris Tolteca"
+          class="w-full p-2.5 text-sm bg-white border border-[#E0DDD6] rounded-[10px] outline-none focus:border-[#1E3A5F] transition">
+      </div>
+
+      <div class="space-y-1">
+        <label for="materialUnit" class="text-xs font-medium text-[#7C7770]">Unidad / Especificación</label>
+        <input id="materialUnit" name="materialUnit" type="text" required [(ngModel)]="formulario.unit"
+          placeholder="Ej. Bulto de 50 kg, M³, Pieza"
+          class="w-full p-2.5 text-sm bg-white border border-[#E0DDD6] rounded-[10px] outline-none focus:border-[#1E3A5F] transition">
+      </div>
+
+      <div class="space-y-1">
+        <label for="materialPrice" class="text-xs font-medium text-[#7C7770]">Precio unitario ($ MXN)</label>
+        <div class="relative">
+          <span
+            class="absolute left-3.5 top-1/2 -translate-y-1/2 text-sm text-[#7C7770] font-medium pointer-events-none">$</span>
+          <input id="materialPrice" name="materialPrice" type="number" required min="0.01" step="0.01"
+            [(ngModel)]="formulario.price" placeholder="0.00"
+            class="w-full pl-8 pr-3 py-2.5 text-sm font-mono bg-white border border-[#E0DDD6] rounded-[10px] outline-none focus:border-[#1E3A5F] transition">
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-3 pt-4 border-t border-[#E0DDD6] mt-6">
+        <button type="button" (click)="cerrarModal()" [disabled]="saving()"
+          class="px-5 py-2.5 text-sm font-medium text-[#1A1814] bg-white border border-[#E0DDD6] rounded-[10px] hover:bg-[#EDEBE5] transition">
+          Cancelar
+        </button>
+
+        <button type="submit" [disabled]="saving() || materialForm.invalid"
+          class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-white bg-[#1E3A5F] hover:opacity-90 rounded-[10px] disabled:opacity-40 transition">
+          @if (saving()) {
+          <svg class="w-4 h-4 animate-spin shrink-0" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+            </path>
+          </svg>
+          <span>Guardando...</span>
+          } @else {
+          <span>{{ editandoId() === null ? 'Guardar material' : 'Actualizar material' }}</span>
+          }
+        </button>
+      </div>
 
     </form>
   </div>
 </div>
+}
