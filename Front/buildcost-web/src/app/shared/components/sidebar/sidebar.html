@@ -1,30 +1,55 @@
-<nav [class.collapsed]="isCollapsed">
-  <header>
-    <h2>BuildCost</h2>
-    <span>CONTRATISTA</span>
-    <button type="button" aria-label="Menú" (click)="toggleMenu()">
-      Menú
+<nav 
+  class="h-full bg-white border-r border-[#E0DDD6] flex flex-col transition-all duration-200 select-none"
+  [class.w-64]="!isCollapsed" 
+  [class.w-20]="isCollapsed"
+>
+  <!-- Header -->
+  <header 
+    class="h-16 px-4 flex items-center border-b border-[#E0DDD6]"
+    [class.justify-between]="!isCollapsed"
+    [class.justify-center]="isCollapsed"
+  >
+    <div *ngIf="!isCollapsed" class="flex items-center gap-3 overflow-hidden">
+      <div class="w-10 h-10 rounded-[10px] bg-[#1E3A5F] text-white flex items-center justify-center shrink-0">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+        </svg>
+      </div>
+      
+      <div class="truncate">
+        <h2 class="text-base font-medium text-[#1A1814] leading-tight">BuildCost</h2>
+        <span class="text-[10px] font-semibold text-[#1E3A5F] uppercase tracking-wider">Contratista</span>
+      </div>
+    </div>
+
+    <button 
+      type="button" 
+      (click)="toggleMenu()" 
+      class="p-2 text-[#7C7770] hover:text-[#1A1814] hover:bg-[#F5F4F0] rounded-[8px] transition cursor-pointer"
+    >
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
     </button>
   </header>
 
-  <ul>
-    <li>
-      <a routerLink="/inicio" routerLinkActive="active">Inicio</a>
-    </li>
-    <li>
-      <a routerLink="/materiales" routerLinkActive="active">Materiales</a>
-    </li>
-    <li>
-      <a routerLink="/datosM2" routerLinkActive="active">Datos por m²</a>
-    </li>
-    <li>
-      <a routerLink="/proyectos" routerLinkActive="active">Proyectos</a>
-    </li>
-    <li>
-      <a routerLink="/perfil" routerLinkActive="active">Mi perfil</a>
+  <!-- Navegación Dinámica -->
+  <ul class="p-3 space-y-1.5 flex-1 overflow-y-auto">
+    <li *ngFor="let item of menuItems">
+      <a 
+        [routerLink]="item.link" 
+        routerLinkActive="bg-[#1E3A5F] !text-white font-medium" 
+        [routerLinkActiveOptions]="{ exact: !!item.exact }"
+        class="flex items-center gap-3 px-3 py-2.5 text-sm text-[#7C7770] hover:text-[#1A1814] hover:bg-[#F5F4F0] rounded-[10px] transition"
+        [class.justify-center]="isCollapsed"
+        [title]="isCollapsed ? item.label : ''"
+      >
+        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="item.iconPath"/>
+        </svg>
+
+        <span *ngIf="!isCollapsed" class="truncate">{{ item.label }}</span>
+      </a>
     </li>
   </ul>
 </nav>
-
-<!-- Capa de fondo para cuando el menú está abierto en móvil -->
-<div *ngIf="!isCollapsed" (click)="toggleMenu()"></div>

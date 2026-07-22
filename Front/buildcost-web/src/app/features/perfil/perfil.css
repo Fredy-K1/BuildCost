@@ -1,0 +1,126 @@
+/* Layout General */
+.page-container {
+  @apply p-4 sm:p-6 lg:p-8 bg-gray-50 dark:bg-gray-900 min-h-screen text-gray-800 dark:text-gray-100 font-sans space-y-6;
+}
+
+.header-section {
+  @apply flex flex-col md:flex-row md:items-center md:justify-between gap-4 pb-2 border-b border-gray-200 dark:border-gray-800;
+}
+
+.page-title {
+  @apply text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white;
+}
+
+.page-subtitle {
+  @apply text-sm text-gray-500 dark:text-gray-400 mt-1;
+}
+
+/* Alertas */
+.alert-banner {
+  @apply p-4 rounded-xl flex items-center gap-3 text-sm font-medium border shadow-sm;
+}
+
+.alert-error {
+  @apply bg-red-50 text-red-800 border-red-200 dark:bg-red-900/20 dark:text-red-300 dark:border-red-800/40;
+}
+
+.alert-success {
+  @apply bg-emerald-50 text-emerald-800 border-emerald-200 dark:bg-emerald-900/20 dark:text-emerald-300 dark:border-emerald-800/40;
+}
+
+.alert-icon {
+  @apply w-5 h-5 shrink-0;
+}
+
+/* Estado de Carga */
+.loading-container {
+  @apply flex flex-col items-center justify-center p-12 bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm gap-3;
+}
+
+/* Disposición Grid del Perfil */
+.profile-grid {
+  @apply grid grid-cols-1 lg:grid-cols-3 gap-6 items-start;
+}
+
+.profile-card {
+  @apply bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm p-6;
+}
+
+/* Sidebar (Aside) */
+.profile-aside {
+  @apply flex flex-col items-center text-center space-y-4 lg:col-span-1;
+}
+
+.avatar-circle {
+  @apply w-24 h-24 rounded-full bg-amber-500 text-white font-extrabold text-2xl flex items-center justify-center shadow-lg shadow-amber-500/20 ring-4 ring-amber-100 dark:ring-amber-900/40;
+}
+
+.profile-name {
+  @apply text-xl font-bold text-gray-900 dark:text-white;
+}
+
+.role-badge {
+  @apply px-3 py-1 text-xs font-semibold uppercase tracking-wider text-amber-700 bg-amber-50 rounded-full border border-amber-200 dark:bg-amber-900/30 dark:text-amber-300 dark:border-amber-800/40;
+}
+
+.aside-info {
+  @apply w-full pt-4 border-t border-gray-100 dark:border-gray-700/60 space-y-3 text-sm;
+}
+
+.info-item {
+  @apply flex items-center justify-center gap-2 text-gray-600 dark:text-gray-300;
+}
+
+.status-indicator {
+  @apply inline-flex items-center gap-2 text-xs font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 px-3 py-1.5 rounded-xl border border-emerald-200 dark:border-emerald-800/30;
+}
+
+.status-dot {
+  @apply w-2 h-2 rounded-full bg-emerald-500 animate-pulse;
+}
+
+/* Main Form Area */
+.profile-main {
+  @apply lg:col-span-2;
+}
+
+.section-header {
+  @apply flex items-center justify-between pb-2;
+}
+
+.section-title {
+  @apply text-lg font-bold text-gray-900 dark:text-white;
+}
+
+.form-field {
+  @apply space-y-1.5;
+}
+
+.form-label {
+  @apply block text-sm font-semibold text-gray-700 dark:text-gray-200;
+}
+
+.form-input {
+  @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all outline-none disabled:opacity-70 disabled:cursor-not-allowed;
+}
+
+.readonly-input {
+  @apply bg-gray-100 text-gray-500 dark:bg-gray-700/40 dark:text-gray-400 border-gray-200 dark:border-gray-700 cursor-not-allowed;
+}
+
+/* Botones */
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 text-white bg-amber-600 hover:bg-amber-700 focus:ring-4 focus:ring-amber-300 font-semibold rounded-xl text-sm px-5 py-2.5 transition-all shadow-sm dark:bg-amber-500 dark:hover:bg-amber-600 dark:focus:ring-amber-900 disabled:opacity-50 cursor-pointer;
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center gap-2 py-2.5 px-5 text-sm font-semibold text-gray-700 bg-white rounded-xl border border-gray-300 hover:bg-gray-50 hover:text-gray-900 focus:ring-4 focus:ring-gray-100 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed;
+}
+
+.btn-logout {
+  @apply inline-flex items-center justify-center gap-2 py-2 px-4 text-sm font-semibold text-red-600 bg-red-50 rounded-xl border border-red-200 hover:bg-red-100 dark:bg-red-900/20 dark:text-red-400 dark:border-red-800/40 dark:hover:bg-red-900/40 transition-all cursor-pointer;
+}
+
+.btn-action.edit {
+  @apply inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-amber-700 bg-amber-50 hover:bg-amber-100 border border-amber-200 dark:bg-amber-900/30 dark:text-amber-300 dark:border-amber-800/40 dark:hover:bg-amber-900/50 rounded-lg transition-colors cursor-pointer;
+}

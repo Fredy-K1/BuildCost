@@ -1,6 +1,8 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { initFlowbite } from 'flowbite'
+
 
 @Component({
   selector: 'app-home',
@@ -10,8 +12,13 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './home.css',
 })
 export class Home {
-
   modalAbierto = signal(false);
+
+ngOnInit():void {
+    initFlowbite();
+}
+
+
 
   abrirModal(): void {
     this.modalAbierto.set(true);

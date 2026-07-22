@@ -1,0 +1,81 @@
+/* Sidebar Principal */
+.sidebar-nav {
+  @apply fixed top-0 left-0 z-40 h-screen w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 p-4 transition-all duration-300 flex flex-col justify-between;
+}
+
+/* Estado Colapsado */
+.sidebar-nav.collapsed {
+  @apply w-20;
+}
+
+/* Header */
+.sidebar-header {
+  @apply flex items-center justify-between pb-6 border-b border-gray-100 dark:border-gray-700;
+}
+
+.brand-info {
+  @apply flex items-center gap-3 overflow-hidden;
+}
+
+.brand-logo {
+  @apply p-2.5 bg-amber-50 dark:bg-gray-700 rounded-xl flex items-center justify-center shrink-0;
+}
+
+.brand-text {
+  @apply transition-opacity duration-200 whitespace-nowrap;
+}
+
+.sidebar-nav.collapsed .brand-text {
+  @apply hidden;
+}
+
+.brand-title {
+  @apply text-lg font-bold tracking-tight text-gray-900 dark:text-white leading-none mb-1;
+}
+
+.role-badge {
+  @apply bg-amber-100 text-amber-800 text-[10px] font-extrabold px-2 py-0.5 rounded-full dark:bg-amber-900/60 dark:text-amber-300 tracking-wider inline-block;
+}
+
+.btn-toggle {
+  @apply p-2 rounded-lg text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white transition-colors shrink-0;
+}
+
+/* Lista de Navegación */
+.nav-list {
+  @apply space-y-2 my-6 flex-1;
+}
+
+.nav-link {
+  @apply flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white transition-colors overflow-hidden whitespace-nowrap;
+}
+
+.sidebar-nav.collapsed .nav-link {
+  @apply justify-center px-0;
+}
+
+.link-label {
+  @apply transition-opacity duration-200;
+}
+
+.sidebar-nav.collapsed .link-label {
+  @apply hidden;
+}
+
+/* Estado Activo por Angular routerLinkActive="active" */
+.nav-link.active {
+  @apply bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 font-bold;
+}
+
+.nav-icon {
+  @apply w-6 h-6 text-gray-400 dark:text-gray-500 transition-colors shrink-0;
+}
+
+.nav-link.active .nav-icon {
+  @apply text-amber-600 dark:text-amber-400;
+}
+
+/* Overlay Móvil */
+.mobile-overlay {
+  @apply fixed inset-0 z-30 bg-gray-900/50 backdrop-blur-sm md:hidden;
+}

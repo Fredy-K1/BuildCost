@@ -1,0 +1,117 @@
+/* Layout Contenedor */
+.page-container {
+  @apply p-4 sm:p-6 lg:p-8 bg-gray-50 dark:bg-gray-900 min-h-screen text-gray-800 dark:text-gray-100 font-sans space-y-6;
+}
+
+.header-section {
+  @apply flex flex-col md:flex-row md:items-center md:justify-between gap-4 pb-2 border-b border-gray-200 dark:border-gray-800;
+}
+
+.page-title {
+  @apply text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white;
+}
+
+.page-subtitle {
+  @apply text-sm text-gray-500 dark:text-gray-400 mt-1;
+}
+
+/* Card Principal */
+.content-card {
+  @apply bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm overflow-hidden;
+}
+
+.action-bar {
+  @apply p-4 sm:p-5 flex flex-col sm:flex-row gap-4 justify-between items-center border-b border-gray-100 dark:border-gray-700/60 bg-gray-50/50 dark:bg-gray-800/50;
+}
+
+.search-wrapper {
+  @apply relative w-full sm:max-w-md;
+}
+
+.search-icon {
+  @apply absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-500 pointer-events-none;
+}
+
+.search-input {
+  @apply pl-10 w-full;
+}
+
+/* Tabla Estilizada */
+.table-container {
+  @apply overflow-x-auto;
+}
+
+.data-table {
+  @apply w-full text-sm text-left text-gray-600 dark:text-gray-300;
+}
+
+.data-table thead {
+  @apply text-xs uppercase bg-gray-50 dark:bg-gray-700/50 text-gray-500 dark:text-gray-400 font-semibold border-b border-gray-200 dark:border-gray-700;
+}
+
+.data-table th {
+  @apply px-6 py-3.5 tracking-wider;
+}
+
+.data-table td {
+  @apply px-6 py-4 border-b border-gray-100 dark:border-gray-700/50;
+}
+
+.data-table tbody tr {
+  @apply hover:bg-gray-50/80 dark:hover:bg-gray-700/30 transition-colors;
+}
+
+/* Estados y Badges */
+.status-badge {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold border;
+}
+
+.status-badge.success {
+  @apply bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-300 dark:border-emerald-800/40;
+}
+
+.state-cell {
+  @apply py-12 text-center text-gray-500 dark:text-gray-400;
+}
+
+.loading-state, .empty-state {
+  @apply flex flex-col items-center justify-center gap-2;
+}
+
+/* Acciones y Botones */
+.actions-group {
+  @apply flex items-center justify-center gap-2;
+}
+
+.btn-action {
+  @apply inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors border border-transparent disabled:opacity-50 cursor-pointer;
+}
+
+.btn-action.primary {
+  @apply text-amber-700 bg-amber-50 hover:bg-amber-100 border-amber-200 dark:bg-amber-900/30 dark:text-amber-300 dark:border-amber-800/40 dark:hover:bg-amber-900/50;
+}
+
+.form-input {
+  @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all outline-none;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 text-white bg-amber-600 hover:bg-amber-700 focus:ring-4 focus:ring-amber-300 font-semibold rounded-xl text-sm px-5 py-2.5 transition-all shadow-sm dark:bg-amber-500 dark:hover:bg-amber-600 dark:focus:ring-amber-900 disabled:opacity-50 cursor-pointer;
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center gap-2 py-2.5 px-5 text-sm font-semibold text-gray-700 bg-white rounded-xl border border-gray-300 hover:bg-gray-50 hover:text-gray-900 focus:ring-4 focus:ring-gray-100 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed;
+}
+
+.sm-btn {
+  @apply py-1.5 px-3 text-xs rounded-lg;
+}
+
+/* Paginación */
+.pagination-footer {
+  @apply p-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-gray-100 dark:border-gray-700/60 bg-gray-50/30 dark:bg-gray-800/30;
+}
+
+.results-count {
+  @apply text-xs text-gray-500 dark:text-gray-400;
+}

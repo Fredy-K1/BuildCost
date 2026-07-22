@@ -17,7 +17,6 @@ export class NavbarUserComponent {
 
   logout(): void {
     this.authService.logout();
-
     this.router.navigateByUrl('/login', {
       replaceUrl: true,
     });

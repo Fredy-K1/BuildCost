@@ -1,8 +1,23 @@
-<app-sidebar *ngIf="showSidebar()" [isCollapsed]="isSidebarCollapsed()" (toggle)="toggleSidebar()"></app-sidebar>
+<div class="flex h-screen w-screen overflow-hidden bg-[#F5F4F0]">
 
-<app-navbar-user *ngIf="showNavbarUser()"></app-navbar-user>
+  <app-sidebar 
+    *ngIf="showSidebar()" 
+    [isCollapsed]="isSidebarCollapsed()" 
+    (toggle)="toggleSidebar()"
+    class="h-full shrink-0 z-30"
+  ></app-sidebar>
 
-<main [class.main-content]="showSidebar() || showNavbarUser()"
-  [class.collapsed]="showSidebar() && isSidebarCollapsed()">
-  <router-outlet></router-outlet>
-</main>
+  <div class="flex-1 flex flex-col h-full min-w-0 overflow-hidden">
+    
+    <app-navbar-user 
+      *ngIf="showNavbarUser()"
+      class="shrink-0"
+    ></app-navbar-user>
+
+    <main class="flex-1 h-full overflow-y-auto">
+      <router-outlet></router-outlet>
+    </main>
+
+  </div>
+
+</div>
