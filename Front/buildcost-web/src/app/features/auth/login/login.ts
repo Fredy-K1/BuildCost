@@ -23,8 +23,14 @@ export class LoginComponent {
     const email = this.credenciales.email.trim();
     const password = this.credenciales.password;
 
-    if (!email || !password) {
-      this.errorMsg = 'Por favor ingresa tu correo y contraseña.';
+    if (!email && !password) {
+      this.errorMsg = 'Por favor ingresa tu correo y tu contraseña.';
+      return;
+    } else if (!email) {
+      this.errorMsg = 'Por favor ingresa tu correo electrónico.';
+      return;
+    } else if (!password) {
+      this.errorMsg = 'Por favor ingresa tu contraseña.';
       return;
     }
 

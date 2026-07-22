@@ -9,12 +9,13 @@ import { AuthService } from '../../../core/services/auth';
   standalone: true,
   imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './recuperar-contrasena.html',
-  styleUrls: ['./recuperar-contrasena.css'],
+  styleUrls: ['./recuperar-contrasena.css']
 })
 export class RecuperarContrasenaComponent {
   datos = { email: '', nuevaContrasena: '' };
   loading = false;
   errorMsg = '';
+  successMsg = ''; 
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -23,17 +24,19 @@ export class RecuperarContrasenaComponent {
       this.errorMsg = 'Por favor, llena ambos campos.';
       return;
     }
-
     this.loading = true;
     this.errorMsg = '';
+    this.successMsg = '';
 
     const payload = { email: this.datos.email, password: this.datos.nuevaContrasena };
-
     this.authService.recover(payload).subscribe({
       next: (respuesta) => {
         this.loading = false;
-        alert(respuesta.message || 'Contraseña actualizada con éxito.');
-        this.router.navigate(['/login']);
+        this.successMsg = respuesta.message || 'Contraseña actualizada con éxito.';
+        
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 2000);
       },
       error: (error) => {
         this.loading = false;

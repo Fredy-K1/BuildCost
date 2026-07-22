@@ -32,7 +32,7 @@ export class RegistroComponent {
     const { nombre, apaterno, correo, password, tipo_usuario } = this.usuario;
 
     if (!nombre || !apaterno || !correo || !password || !tipo_usuario) {
-      this.errorMsg = 'Por favor llene los campos obligatorios: Nombre, Apellido Paterno, Correo, Contraseña y Tipo.';
+      this.errorMsg = 'Por favor llene los campos obligatorios: Nombre, Apellido Paterno, Apellido Materno, Telefono Correo, Contraseña y Tipo.';
       return;
     }
 
