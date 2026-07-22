@@ -1,21 +1,39 @@
-<nav>
-  <header>
-    <h2>BuildCost</h2>
-    <span>CLIENTE</span>
-  </header>
+<nav class="bg-slate-900 text-white shadow-lg">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
 
-  <ul>
-    <li>
-      <a routerLink="/home" routerLinkActive="active">Inicio</a>
-    </li>
-    <li>
-      <a routerLink="/proyectos_user" routerLinkActive="active">Proyectos</a>
-    </li>
-    <li>
-      <a routerLink="/cotizaciones" routerLinkActive="active">Cotizaciones</a>
-    </li>
-    <li>
-      <a routerLink="/perfil" routerLinkActive="active">Mi perfil</a>
-    </li>
-  </ul>
+
+        <!-- LOGO -->
+        <div class="flex items-center gap-3">
+            <div class="bg-orange-600 w-10 h-10 rounded-xl flex items-center justify-center">
+                <img src="/assets/img/llave.png" alt="Logo" class="w-6 h-6">
+            </div>
+            <div>
+                <h2 class="text-2xl font-bold text-orange-500">BuildCost</h2>
+                <span class="text-xs text-slate-300">CLIENTE</span>
+            </div>
+        </div>
+
+        <!-- MENU -->
+        <ul class="hidden md:flex items-center gap-8">
+            <li>
+                <a routerLink="/home"routerLinkActive="active"class="text-slate-300 hover:text-orange-400 transition">Inicio</a>
+            </li>
+            <li>
+                <a routerLink="/proyectos_user"routerLinkActive="active"class="text-slate-300 hover:text-orange-400 transition">Proyectos</a>
+            </li>
+            <li>
+                <a routerLink="/cotizaciones"routerLinkActive="active"class="text-slate-300 hover:text-orange-400 transition">Cotizaciones</a>
+            </li>
+            <li>
+                <a routerLink="/perfil"routerLinkActive="active"class="text-slate-300 hover:text-orange-400 transition">Mi perfil</a>
+            </li>
+        </ul>
+        
+        <!-- USUARIO -->
+        <div class="hidden md:flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-orange-600 flex items-center justify-center">
+            </div>
+            <span class="text-sm text-slate-300">Usuario</span>
+        </div>
+    </div>
 </nav>

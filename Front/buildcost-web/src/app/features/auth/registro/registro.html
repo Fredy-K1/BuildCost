@@ -1,50 +1,53 @@
-<div>
-    <img width="50" height="50" src="/assets/img/llave.png" alt="wrench"/>
-    
-    <h1>Crear Cuenta</h1>
-    <p>Regístrate para comenzar</p>
-    
+<div class="min-h-screen bg-stone-200 flex items-center justify-center p-6">
+    <div class="w-full max-w-6xl bg-white rounded-2xl shadow-xl p-10 ">
+
+        <div class="text-center mb-8">
+            <img width="60" height="60" src="/assets/img/llave.png" alt="wrench"class="mx-auto mb-3">
+            <h1 class="text-3xl font-bold text-gray-800">Crear Cuenta</h1>
+            <p class="text-gray-500">Regístrate para comenzar</p>
+        </div>
+
     <form (ngSubmit)="registrar()">
-        <h3>Datos Personales</h3>
-        
-        <label>Nombre(s) *</label>
-        <input type="text" [(ngModel)]="usuario.nombre" name="nombre" required>
-        
-        <label>Apellido Paterno *</label>
-        <input type="text" [(ngModel)]="usuario.apaterno" name="apaterno" required>
-        
-        <label>Apellido Materno</label>
-        <input type="text" [(ngModel)]="usuario.amaterno" name="amaterno">
-        
-        <label>Teléfono</label>
-        <input type="tel" [(ngModel)]="usuario.telefono" name="telefono">
-        
-        <h3>Datos de Cuenta</h3>
-        
-        <label>¿Qué deseas hacer? *</label>
-        <select name="tipo_usuario" [(ngModel)]="usuario.tipo_usuario" required>
-            <option value="">Selecciona una opción</option>
-            <option value="Cliente">Cliente</option>
-            <option value="Contratista">Proveedor / Contratista</option>
-        </select>
-        
-        <label>Correo electrónico *</label>
-        <input type="email" [(ngModel)]="usuario.correo" name="correo" required>
-        
-        <label>Contraseña *</label>
-        <input type="password" [(ngModel)]="usuario.password" name="password" required>
-        
-        <p *ngIf="errorMsg">
-            {{ errorMsg }}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="border rounded-xl p-6">
+                <h3 class="text-xl font-semibold text-gray-700 mb-5">Datos Personales</h3>
+                <label class="block text-sm font-medium">Nombre(s) *</label>
+                <input type="text"[(ngModel)]="usuario.nombre"name="nombre"class="w-full mt-1 mb-4 px-4 py-2 border rounded-lg">
+
+                <label class="block text-sm font-medium">Apellido Paterno *</label>
+                <input type="text"[(ngModel)]="usuario.apaterno"name="apaterno"class="w-full mt-1 mb-4 px-4 py-2 border rounded-lg">
+                
+                <label class="block text-sm font-medium">Apellido Materno</label>
+                <input type="text"[(ngModel)]="usuario.amaterno"name="amaterno"class="w-full mt-1 mb-4 px-4 py-2 border rounded-lg">
+
+                <label class="block text-sm font-medium">Teléfono</label>
+                <input type="tel"[(ngModel)]="usuario.telefono"name="telefono"class="w-full mt-1 px-4 py-2 border rounded-lg">
+            </div>
+
+            <div class="border rounded-xl p-6">
+                <h3 class="text-xl font-semibold text-gray-700 mb-5">Datos de Cuenta</h3>
+                <label class="block text-sm font-medium">¿Qué deseas hacer? *</label>
+                <select [(ngModel)]="usuario.tipo_usuario"name="tipo_usuario"class="w-full mt-1 mb-4 px-4 py-2 border rounded-lg">
+                    <option value="">Selecciona una opción</option>
+                    <option value="Cliente">Cliente</option>
+                    <option value="Contratista">Proveedor / Contratista</option>
+                </select>
+                <label class="block text-sm font-medium">Correo electrónico *</label>
+                <input type="email"[(ngModel)]="usuario.correo"name="correo"class="w-full mt-1 mb-4 px-4 py-2 border rounded-lg">
+                <label class="block text-sm font-medium">Contraseña *</label>
+
+                <input type="password"[(ngModel)]="usuario.password"name="password"class="w-full mt-1 mb-4 px-4 py-2 border rounded-lg">
+                <p *ngIf="errorMsg"class="text-red-600 mb-3">{{ errorMsg }}</p>
+            </div>
+        </div>
+
+        <div class="mt-8 flex justify-center">
+        <button type="submit"[disabled]="loading"class="w-full md:w-1/2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg">{{ loading ? 'Registrando...' : 'Registrar' }}</button>
+        </div>
+
+        <p class="text-center mt-6 text-gray-600">¿Ya tienes una cuenta?
+        <a routerLink="/login"class="text-blue-600 font-semibold hover:underline">Inicia sesión</a>
         </p>
-        
-        <button type="submit" [disabled]="loading">
-            {{ loading ? 'Registrando...' : 'Registrar' }}
-        </button>
     </form>
-    
-    <p>
-        ¿Ya tienes una cuenta?
-        <a routerLink="/login">Inicia sesión</a>
-    </p>
+    </div>
 </div>

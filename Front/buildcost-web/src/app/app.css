@@ -6,23 +6,5 @@
 main {
   min-height: 100vh;
   box-sizing: border-box;
-  transition: margin-left 0.3s ease;
-}
-
-main.main-content {
-  margin-left: 240px;
-}
-
-main.main-content.collapsed {
-  margin-left: 70px;
-}
-
-@media (max-width: 768px) {
-  main.main-content {
-    margin-left: 210px;
-  }
-
-  main.main-content.collapsed {
-    margin-left: 70px;
-  }
+  width: 100%;
 }
