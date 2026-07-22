@@ -1,68 +1,89 @@
-<app-navbar-user></app-navbar-user>
+<div class="min-h-screen bg-slate-100 p-6">
 
-<h2>Cotizaciones recibidas</h2>
-<p>Compara y acepta la mejor propuesta</p>
+    <div class="flex flex-col md:flex-row justify-between md:items-center mb-8">
+        <div>
+            <h1 class="text-3xl font-bold text-slate-800">Cotizaciones recibidas</h1>
+            <p class="text-slate-500 mt-2">Compara y acepta la mejor propuesta para tu proyecto.</p>
+        </div>
 
-<select>
-  <option>Todos los proyectos</option>
-  <option>Casa habitación 3 recámaras</option>
-  <option>Remodelación de departamento</option>
-</select>
+        <div class="mt-4 md:mt-0">
+            <select class="w-72 px-4 py-3 rounded-xl border border-slate-300 bg-white shadow-sm focus:ring-2 focus:ring-orange-500 focus:outline-none">
+                <option>Todos los proyectos</option>
+                <option>Casa habitación 3 recámaras</option>
+                <option>Remodelación de departamento</option>
+            </select>
+        </div>
+    </div>
 
-<br><br>
+    <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+        <div class="p-6 border-b">
+            <h2 class="text-xl font-bold text-slate-700">Lista de cotizaciones</h2>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full">
+                <thead class="bg-slate-800 text-white">
+                    <tr>
+                        <th class="px-6 py-4 text-left">Folio</th>
+                        <th class="px-6 py-4 text-left">Proyecto</th>
+                        <th class="px-6 py-4 text-left">Contratista</th>
+                        <th class="px-6 py-4 text-left">Tipo</th>
+                        <th class="px-6 py-4 text-left">Mano de obra</th>
+                        <th class="px-6 py-4 text-left">Material</th>
+                        <th class="px-6 py-4 text-left">Total</th>
+                        <th class="px-6 py-4 text-left">Estado</th>
+                        <th class="px-6 py-4 text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="border-b hover:bg-slate-50">
+                        <td class="px-6 py-5 font-semibold text-blue-600">COT-001</td>
+                        <td class="px-6 py-5">Casa habitación 3 recámaras</td>
+                        <td class="px-6 py-5">
+                            <p class="font-semibold">
+                                Constructora del Golfo
+                            </p>
+                            <span class="text-yellow-500">
+                              <img width="48" height="48" src="https://img.icons8.com/fluency/48/star--v1.png" alt="star--v1"/> 4.5
+                            </span>
+                        </td>
+                        <td class="px-6 py-5">Completo</td>
+                        <td class="px-6 py-5">$85,000</td>
+                        <td class="px-6 py-5">$120,000</td>
+                        <td class="px-6 py-5 font-bold text-green-700">$205,000</td>
+                        <td class="px-6 py-5">
+                            <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm font-semibold">Pendiente</span>
+                        </td>
+                        <td class="px-6 py-5">
+                            <div class="flex gap-2 justify-center">
+                                <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm">Ver</button>
+                                <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm">Aceptar</button>
+                                <button class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm">Rechazar</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50">
+                        <td class="px-6 py-5 font-semibold text-blue-600">COT-002</td>
+                        <td class="px-6 py-5">Remodelación de departamento</td>
+                        <td class="px-6 py-5">
+                            <p class="font-semibold">Servicios Hernández</p>
+                            <span class="text-yellow-500">
+                              <img width="48" height="48" src="https://img.icons8.com/fluency/48/star--v1.png" alt="star--v1"/> 4.5
+                            </span>
+                        </td>
+                        <td class="px-6 py-5">Solo mano de obra</td>
+                        <td class="px-6 py-5">$45,000</td>
+                        <td class="px-6 py-5">—</td>
+                        <td class="px-6 py-5 font-bold text-green-700">$45,000</td>
+                        <td class="px-6 py-5">
+                            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold">Aceptado</span>
+                        </td>
+                        <td class="px-6 py-5">
+                            <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm">Ver</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Folio</th>
-      <th>Proyecto</th>
-      <th>Contratista</th>
-      <th>Tipo</th>
-      <th>M. Obra</th>
-      <th>Material</th>
-      <th>Total</th>
-      <th>Estado</th>
-      <th>Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>COT-001</td>
-      <td>Casa habitación 3 recámaras</td>
-      <td>
-        Constructora del Golfo <br>
-        <span>⭐ 4.8</span>
-      </td>
-      <td>Completo</td>
-      <td>$85,000 MXN</td>
-      <td>$120,000 MXN</td>
-      <td><strong>$205,000 MXN</strong></td>
-      <td>Pendiente</td>
-      <td>
-        <button>Ver</button>
-        <button>Aceptar</button>
-        <button>Rechazar</button>
-      </td>
-    </tr>
-    <tr>
-      <td>COT-002</td>
-      <td>Remodelación de departamento</td>
-      <td>
-        Servicios Hernández <br>
-        <span>⭐ 4.5</span>
-      </td>
-      <td>Solo mano de obra</td>
-      <td>$45,000 MXN</td>
-      <td>-</td>
-      <td><strong>$45,000 MXN</strong></td>
-      <td>Aceptado</td>
-      <td>
-        <button>Ver</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<p>
-  Tip: al aceptar una cotización podrás descargar el PDF y contactar al contratista.
-</p>
+</div>

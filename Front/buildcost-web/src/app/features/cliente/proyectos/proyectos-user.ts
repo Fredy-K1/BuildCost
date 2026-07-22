@@ -7,7 +7,7 @@ import { NavbarUserComponent } from '../../../shared/components/nabvar-user/nabv
 @Component({
   selector: 'app-proyectos',
   standalone: true,
-  imports: [CommonModule, FormsModule, NavbarUserComponent],
+  imports: [CommonModule, FormsModule],
   templateUrl: './proyectos.html',
   styleUrl: './proyectos.css',
 })

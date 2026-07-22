@@ -7,7 +7,7 @@ import { AuthService } from '../../../core/services/auth';
 @Component({
   selector: 'app-cotizaciones',
   standalone: true,
-  imports: [CommonModule, FormsModule, NavbarUserComponent],
+  imports: [CommonModule, FormsModule],
   templateUrl: './cotizaciones.html',
   styleUrl: './cotizaciones.css',
 })

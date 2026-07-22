@@ -1,45 +1,39 @@
 <div class="p-4 sm:p-6 lg:p-8 space-y-6">
 
-  <!-- Header -->
   <header class="pb-3 border-b border-[#E0DDD6]">
     <h1 class="text-2xl font-medium text-[#1A1814]">Proyectos Aceptados</h1>
-    <p class="text-sm text-[#7C7770]">Presupuestos autorizados, acceso a archivos PDF e información de contacto directos.</p>
+    <p class="text-sm text-[#7C7770]">Presupuestos autorizados, acceso a archivos PDF e información de contacto
+      directos.</p>
   </header>
 
-  <!-- Card -->
   <div class="bg-white rounded-[16px] border border-[#E0DDD6] overflow-hidden">
 
-    <!--Acciones -->
     <div class="p-4 sm:p-5 flex flex-col sm:flex-row gap-4 justify-between items-center border-b border-[#E0DDD6]">
       <div class="relative w-full sm:max-w-md">
-        <svg class="w-4 h-4 text-[#7C7770] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        <svg class="w-4 h-4 text-[#7C7770] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none"
+          stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
-        <input
-          type="text"
-          placeholder="Buscar por folio, proyecto o cliente..."
-          [ngModel]="busqueda()"
+        <input type="text" placeholder="Buscar por folio, proyecto o cliente..." [ngModel]="busqueda()"
           (ngModelChange)="busqueda.set($event)"
-          class="w-full pl-10 pr-3 py-2 text-sm bg-white border border-[#E0DDD6] rounded-[10px] outline-none focus:border-[#1E3A5F] transition"
-        >
+          class="w-full pl-10 pr-3 py-2 text-sm bg-white border border-[#E0DDD6] rounded-[10px] outline-none focus:border-[#1E3A5F] transition">
       </div>
 
-      <button 
-        type="button" 
-        (click)="cargarProyectos()"
-        class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2 text-sm font-medium text-white bg-[#1E3A5F] hover:opacity-90 rounded-[10px] transition"
-      >
+      <button type="button" (click)="cargarProyectos()"
+        class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2 text-sm font-medium text-white bg-[#1E3A5F] hover:opacity-90 rounded-[10px] transition">
         <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
         </svg>
         Actualizar
       </button>
     </div>
 
-    <!-- Tabla de Contenido -->
     <div class="overflow-x-auto">
       <table class="w-full text-sm text-left text-[#1A1814]">
-        <thead class="text-[11px] uppercase bg-[#EDEBE5] text-[#7C7770] font-medium tracking-wider border-b border-[#E0DDD6]">
+        <thead
+          class="text-[11px] uppercase bg-[#EDEBE5] text-[#7C7770] font-medium tracking-wider border-b border-[#E0DDD6]">
           <tr>
             <th class="px-6 py-3.5">Folio</th>
             <th class="px-6 py-3.5">Proyecto</th>
@@ -53,87 +47,84 @@
         <tbody class="divide-y divide-[#E0DDD6]">
 
           @if (loading()) {
-            <tr>
-              <td colspan="7" class="px-6 py-12 text-center text-[#7C7770]">
-                <div class="flex flex-col items-center justify-center gap-2">
-                  <svg class="w-6 h-6 animate-spin text-[#1E3A5F]" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  <span>Cargando proyectos aceptados...</span>
-                </div>
-              </td>
-            </tr>
+          <tr>
+            <td colspan="7" class="px-6 py-12 text-center text-[#7C7770]">
+              <div class="flex flex-col items-center justify-center gap-2">
+                <svg class="w-6 h-6 animate-spin text-[#1E3A5F]" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                  </path>
+                </svg>
+                <span>Cargando proyectos aceptados...</span>
+              </div>
+            </td>
+          </tr>
           }
 
           @if (!loading() && proyectosFiltrados().length === 0) {
-            <tr>
-              <td colspan="7" class="px-6 py-12 text-center text-[#7C7770]">
-                <div class="flex flex-col items-center justify-center gap-2">
-                  <svg class="w-10 h-10 text-[#7C7770]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                  </svg>
-                  <p>No se encontraron proyectos aceptados.</p>
-                </div>
-              </td>
-            </tr>
+          <tr>
+            <td colspan="7" class="px-6 py-12 text-center text-[#7C7770]">
+              <div class="flex flex-col items-center justify-center gap-2">
+                <svg class="w-10 h-10 text-[#7C7770]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                <p>No se encontraron proyectos aceptados.</p>
+              </div>
+            </td>
+          </tr>
           }
 
-          <!-- Lista de Proyectos -->
           @for (proyecto of proyectosFiltrados(); track proyecto.id) {
-            <tr class="hover:bg-[#F5F4F0]/60 transition-colors">
-              <td class="px-6 py-4 font-mono text-xs font-medium text-[#1E3A5F]">{{ proyecto.folio }}</td>
-              
-              <td class="px-6 py-4">
-                <div class="font-medium text-[#1A1814]">{{ proyecto.nombre }}</div>
-                <div class="text-xs text-[#7C7770]">{{ proyecto.ubicacion }}</div>
-              </td>
+          <tr class="hover:bg-[#F5F4F0]/60 transition-colors">
+            <td class="px-6 py-4 font-mono text-xs font-medium text-[#1E3A5F]">{{ proyecto.folio }}</td>
 
-              <td class="px-6 py-4">
-                <div class="font-medium text-[#1A1814]">{{ proyecto.cliente }}</div>
-                @if (proyecto.whatsapp) {
-                  <a 
-                    [href]="'https://wa.me/' + proyecto.whatsapp" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    class="inline-flex items-center gap-1 text-xs text-[#15803D] hover:underline font-medium mt-0.5"
-                  >
-                    <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                      <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984 0 1.758.459 3.474 1.33 4.982L2 22l5.133-1.343c1.451.792 3.097 1.21 4.871 1.211h.004c5.505 0 9.988-4.478 9.989-9.985 0-2.667-1.037-5.176-2.922-7.062A9.924 9.924 0 0012.012 2z"/>
-                    </svg>
-                    WhatsApp
-                  </a>
-                }
-              </td>
+            <td class="px-6 py-4">
+              <div class="font-medium text-[#1A1814]">{{ proyecto.nombre }}</div>
+              <div class="text-xs text-[#7C7770]">{{ proyecto.ubicacion }}</div>
+            </td>
 
-              <td class="px-6 py-4 text-right font-mono font-medium">
-                {{ proyecto.total | currency:'MXN':'symbol':'1.2-2' }}
-              </td>
+            <td class="px-6 py-4">
+              <div class="font-medium text-[#1A1814]">{{ proyecto.cliente }}</div>
+              @if (proyecto.whatsapp) {
+              <a [href]="'https://wa.me/' + proyecto.whatsapp" target="_blank" rel="noopener noreferrer"
+                class="inline-flex items-center gap-1 text-xs text-[#15803D] hover:underline font-medium mt-0.5">
+                <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                  <path
+                    d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984 0 1.758.459 3.474 1.33 4.982L2 22l5.133-1.343c1.451.792 3.097 1.21 4.871 1.211h.004c5.505 0 9.988-4.478 9.989-9.985 0-2.667-1.037-5.176-2.922-7.062A9.924 9.924 0 0012.012 2z" />
+                </svg>
+                WhatsApp
+              </a>
+              }
+            </td>
 
-              <td class="px-6 py-4 text-center text-xs font-mono text-[#7C7770]">
-                {{ proyecto.fechaAceptado | date:'dd/MM/yyyy' }}
-              </td>
+            <td class="px-6 py-4 text-right font-mono font-medium">
+              {{ proyecto.total | currency:'MXN':'symbol':'1.2-2' }}
+            </td>
 
-              <td class="px-6 py-4 text-center">
-                <span class="px-2.5 py-0.5 text-xs font-medium text-[#166534] bg-[#DCFCE7] border border-[#BBF7D0] rounded-full">
-                  Aceptado
-                </span>
-              </td>
+            <td class="px-6 py-4 text-center text-xs font-mono text-[#7C7770]">
+              {{ proyecto.fechaAceptado | date:'dd/MM/yyyy' }}
+            </td>
 
-              <td class="px-6 py-4 text-center">
-                <button 
-                  type="button" 
-                  (click)="descargarPdf(proyecto)"
-                  title="Descargar PDF" 
-                  class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#1E3A5F] bg-[#E6EEF6] hover:bg-[#D0E2F2] rounded-[8px] transition" 
-                >
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                  </svg>
-                  <span>PDF</span>
-                </button>
-              </td>
-            </tr>
+            <td class="px-6 py-4 text-center">
+              <span
+                class="px-2.5 py-0.5 text-xs font-medium text-[#166534] bg-[#DCFCE7] border border-[#BBF7D0] rounded-full">
+                Aceptado
+              </span>
+            </td>
+
+            <td class="px-6 py-4 text-center">
+              <button type="button" (click)="descargarPdf(proyecto)" title="Descargar PDF"
+                class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#1E3A5F] bg-[#E6EEF6] hover:bg-[#D0E2F2] rounded-[8px] transition">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                <span>PDF</span>
+              </button>
+            </td>
+          </tr>
           }
         </tbody>
       </table>
@@ -142,11 +133,14 @@
     <!-- Footer -->
     <div class="p-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-[#E0DDD6]">
       <span class="text-xs font-mono text-[#7C7770]">
-        Mostrando <strong class="text-[#1A1814]">{{ proyectosFiltrados().length }}</strong> {{ proyectosFiltrados().length === 1 ? 'proyecto aceptado' : 'proyectos aceptados' }}
+        Mostrando <strong class="text-[#1A1814]">{{ proyectosFiltrados().length }}</strong> {{
+        proyectosFiltrados().length === 1 ? 'proyecto aceptado' : 'proyectos aceptados' }}
       </span>
       <div class="inline-flex gap-2">
-        <button type="button" disabled class="px-3 py-1.5 text-xs font-medium text-[#1A1814] bg-white border border-[#E0DDD6] rounded-[8px] hover:bg-[#EDEBE5] disabled:opacity-40 transition">Anterior</button>
-        <button type="button" disabled class="px-3 py-1.5 text-xs font-medium text-[#1A1814] bg-white border border-[#E0DDD6] rounded-[8px] hover:bg-[#EDEBE5] disabled:opacity-40 transition">Siguiente</button>
+        <button type="button" disabled
+          class="px-3 py-1.5 text-xs font-medium text-[#1A1814] bg-white border border-[#E0DDD6] rounded-[8px] hover:bg-[#EDEBE5] disabled:opacity-40 transition">Anterior</button>
+        <button type="button" disabled
+          class="px-3 py-1.5 text-xs font-medium text-[#1A1814] bg-white border border-[#E0DDD6] rounded-[8px] hover:bg-[#EDEBE5] disabled:opacity-40 transition">Siguiente</button>
       </div>
     </div>
 

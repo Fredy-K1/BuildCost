@@ -7,7 +7,7 @@ import { AuthService } from '../../../core/services/auth';
 @Component({
   selector: 'app-home-user',
   standalone: true,
-  imports: [CommonModule, FormsModule, NavbarUserComponent],
+  imports: [CommonModule, FormsModule],
   templateUrl: './home-user.html',
   styleUrls: ['./home-user.css'],
 })

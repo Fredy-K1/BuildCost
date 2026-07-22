@@ -1,4 +1,3 @@
-/* Layout General */
 .page-container {
   @apply p-4 sm:p-6 lg:p-8 bg-gray-50 dark:bg-gray-900 min-h-screen text-gray-800 dark:text-gray-100 font-sans space-y-6;
 }
@@ -15,7 +14,6 @@
   @apply text-sm text-gray-500 dark:text-gray-400 mt-1;
 }
 
-/* Alertas */
 .alert-banner {
   @apply p-4 rounded-xl flex items-center gap-3 text-sm font-medium border shadow-sm;
 }
@@ -32,12 +30,10 @@
   @apply w-5 h-5 shrink-0;
 }
 
-/* Estado de Carga */
 .loading-container {
   @apply flex flex-col items-center justify-center p-12 bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm gap-3;
 }
 
-/* Disposición Grid del Perfil */
 .profile-grid {
   @apply grid grid-cols-1 lg:grid-cols-3 gap-6 items-start;
 }
@@ -46,7 +42,6 @@
   @apply bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm p-6;
 }
 
-/* Sidebar (Aside) */
 .profile-aside {
   @apply flex flex-col items-center text-center space-y-4 lg:col-span-1;
 }
@@ -79,7 +74,6 @@
   @apply w-2 h-2 rounded-full bg-emerald-500 animate-pulse;
 }
 
-/* Main Form Area */
 .profile-main {
   @apply lg:col-span-2;
 }
@@ -108,7 +102,6 @@
   @apply bg-gray-100 text-gray-500 dark:bg-gray-700/40 dark:text-gray-400 border-gray-200 dark:border-gray-700 cursor-not-allowed;
 }
 
-/* Botones */
 .btn-primary {
   @apply inline-flex items-center justify-center gap-2 text-white bg-amber-600 hover:bg-amber-700 focus:ring-4 focus:ring-amber-300 font-semibold rounded-xl text-sm px-5 py-2.5 transition-all shadow-sm dark:bg-amber-500 dark:hover:bg-amber-600 dark:focus:ring-amber-900 disabled:opacity-50 cursor-pointer;
 }
