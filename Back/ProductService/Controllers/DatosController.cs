@@ -50,8 +50,7 @@ namespace ProductService.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CrearDatoM2(
-            [FromBody] DatoM2Dto dto)
+        public async Task<IActionResult> CrearDatoM2([FromBody] DatoM2Dto dto)
         {
             if (!TryGetContratistaId(out var contratistaId))
             {

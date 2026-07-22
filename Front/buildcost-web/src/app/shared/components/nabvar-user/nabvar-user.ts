@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { Auth } from '../../../core/services/auth';
+import { AuthService } from '../../../core/services/auth';
 
 @Component({
   selector: 'app-navbar-user',
@@ -11,7 +11,7 @@ import { Auth } from '../../../core/services/auth';
 })
 export class NavbarUserComponent {
   constructor(
-    private readonly authService: Auth,
+    private readonly authService: AuthService,
     private readonly router: Router,
   ) {}
 

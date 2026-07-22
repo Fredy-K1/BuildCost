@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { Auth } from '../../../core/services/auth';
+import { AuthService } from '../../../core/services/auth';
 import { LoginRequest } from '../../../shared/models/auth.model';
 
 @Component({
@@ -13,18 +13,11 @@ import { LoginRequest } from '../../../shared/models/auth.model';
   styleUrls: ['./login.css']
 })
 export class LoginComponent {
-  credenciales: LoginRequest = {
-    email: '',
-    password: ''
-  };
-
+  credenciales: LoginRequest = { email: '', password: '' };
   loading = false;
   errorMsg = '';
 
-  constructor(
-    private authService: Auth,
-    private router: Router
-  ) { }
+  constructor(private authService: AuthService, private router: Router) {}
 
   login(): void {
     const email = this.credenciales.email.trim();
@@ -38,24 +31,14 @@ export class LoginComponent {
     this.loading = true;
     this.errorMsg = '';
 
-    const payload: LoginRequest = {
-      email,
-      password
-    };
-
-    this.authService.login(payload).subscribe({
+    this.authService.login({ email, password }).subscribe({
       next: () => {
         this.loading = false;
-        this.router.navigateByUrl(
-          this.authService.getRutaInicial()
-        );
+        this.router.navigateByUrl(this.authService.getRutaInicial());
       },
       error: (err) => {
         this.loading = false;
-        this.errorMsg =
-          err.error?.message ??
-          err.error?.title ??
-          'Credenciales incorrectas.';
+        this.errorMsg = err.error?.message ?? err.error?.title ?? 'Credenciales incorrectas.';
       }
     });
   }

@@ -3,7 +3,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Auth } from '../../core/services/auth';
+import { AuthService } from '../../core/services/auth';
 
 interface PerfilUsuario {
   id: string;
@@ -50,7 +50,7 @@ interface JwtPayload {
 export class Perfil implements OnInit {
   private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
-  private readonly auth = inject(Auth);
+  private readonly auth = inject(AuthService);
   private readonly platformId = inject(PLATFORM_ID);
 
   private readonly authUrl = 'http://localhost:5003/api/auth';

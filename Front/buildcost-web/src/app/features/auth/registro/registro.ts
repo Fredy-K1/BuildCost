@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
-import { Auth } from '../../../core/services/auth';
+import { RouterModule, Router } from '@angular/router';
+import { AuthService } from '../../../core/services/auth';
 import { RegisterRequest } from '../../../shared/models/auth.model';
 
 @Component({
@@ -26,17 +26,13 @@ export class RegistroComponent {
   loading = false;
   errorMsg = '';
 
-  constructor(
-    private authService: Auth,
-    private router: Router,
-  ) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   registrar(): void {
     const { nombre, apaterno, correo, password, tipo_usuario } = this.usuario;
 
     if (!nombre || !apaterno || !correo || !password || !tipo_usuario) {
-      this.errorMsg =
-        'Por favor llene los campos obligatorios: Nombre, Apellido Paterno, Correo, Contraseña y Tipo.';
+      this.errorMsg = 'Por favor llene los campos obligatorios: Nombre, Apellido Paterno, Correo, Contraseña y Tipo.';
       return;
     }
 

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
 import { Sidebar } from './shared/components/sidebar/sidebar';
 import { NavbarUserComponent } from './shared/components/nabvar-user/nabvar-user';
-import { Auth } from './core/services/auth';
+import { AuthService } from './core/services/auth';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +19,7 @@ export class App {
 
   constructor(
     private readonly router: Router,
-    private readonly authService: Auth,
+    private readonly authService: AuthService,
   ) {}
 
   toggleSidebar(): void {

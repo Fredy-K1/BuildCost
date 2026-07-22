@@ -1,7 +1,7 @@
 import { Component, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Auth } from '../../../core/services/auth';
+import { AuthService } from '../../../core/services/auth';
 import { NavbarUserComponent } from '../../../shared/components/nabvar-user/nabvar-user';
 
 @Component({

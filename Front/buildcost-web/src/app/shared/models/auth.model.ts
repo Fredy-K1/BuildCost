@@ -13,8 +13,23 @@ export interface LoginRequest {
   password: string;
 }
 
-export interface LoginResponse {
+export interface AuthResponse {
   token: string;
   role:  string;
-  message: string;
+  id?: string;
+  userId?: string;
+  name?: string;
+  email?: string;
+  message?: string;
+}
+
+export interface RegisterResponse {
+  message?: string;
+}
+
+export interface UsuarioSesion {
+  userId: string | null;
+  name: string;
+  email: string;
+  role: string;
 }
