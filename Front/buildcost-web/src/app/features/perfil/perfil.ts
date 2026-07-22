@@ -4,41 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth';
-
-interface PerfilUsuario {
-  id: string;
-  name: string;
-  apaterno: string;
-  amaterno: string;
-  telefono: string;
-  email: string;
-  role: string;
-  createdAt?: string;
-}
-
-interface ActualizarPerfilRequest {
-  name: string;
-  apaterno: string;
-  amaterno: string;
-  telefono: string;
-}
-
-interface UsuarioLocal {
-  id?: string;
-  Id?: string;
-  name?: string;
-  Name?: string;
-  email?: string;
-  role?: string;
-  token?: string;
-  [key: string]: unknown;
-}
-
-interface JwtPayload {
-  nameid?: string;
-  sub?: string;
-  [key: string]: unknown;
-}
+import {
+  PerfilUsuario,
+  ActualizarPerfilRequest,
+  UsuarioLocal,
+  JwtPayload,
+} from '../../shared/models/perfil.model';
 
 @Component({
   selector: 'app-perfil',
@@ -52,7 +23,6 @@ export class Perfil implements OnInit {
   private readonly router = inject(Router);
   private readonly auth = inject(AuthService);
   private readonly platformId = inject(PLATFORM_ID);
-
   private readonly authUrl = 'http://localhost:5003/api/auth';
 
   perfil = signal<PerfilUsuario | null>(null);
@@ -71,11 +41,7 @@ export class Perfil implements OnInit {
 
   nombreCompleto = computed(() => {
     const usuario = this.perfil();
-
-    if (!usuario) {
-      return '';
-    }
-
+    if (!usuario) return '';
     return [usuario.name, usuario.apaterno, usuario.amaterno]
       .filter((valor) => valor?.trim())
       .join(' ');
@@ -83,15 +49,9 @@ export class Perfil implements OnInit {
 
   iniciales = computed(() => {
     const usuario = this.perfil();
-
-    if (!usuario) {
-      return '';
-    }
-
+    if (!usuario) return '';
     const primeraInicial = usuario.name?.trim().charAt(0) ?? '';
-
     const segundaInicial = usuario.apaterno?.trim().charAt(0) ?? '';
-
     return (primeraInicial + segundaInicial).toUpperCase();
   });
 
@@ -101,7 +61,6 @@ export class Perfil implements OnInit {
 
   cargarPerfil(): void {
     const usuarioId = this.obtenerUsuarioId();
-
     if (!usuarioId) {
       this.errorMsg.set('No fue posible identificar al usuario de la sesión.');
       return;
@@ -120,7 +79,6 @@ export class Perfil implements OnInit {
       },
       error: (error: HttpErrorResponse) => {
         this.loading.set(false);
-
         this.mostrarError(error, 'No fue posible cargar el perfil.');
       },
     });
@@ -128,11 +86,7 @@ export class Perfil implements OnInit {
 
   activarEdicion(): void {
     const usuario = this.perfil();
-
-    if (!usuario) {
-      return;
-    }
-
+    if (!usuario) return;
     this.copiarPerfilAlFormulario(usuario);
     this.errorMsg.set('');
     this.successMsg.set('');
@@ -141,11 +95,7 @@ export class Perfil implements OnInit {
 
   cancelarEdicion(): void {
     const usuario = this.perfil();
-
-    if (usuario) {
-      this.copiarPerfilAlFormulario(usuario);
-    }
-
+    if (usuario) this.copiarPerfilAlFormulario(usuario);
     this.editando.set(false);
     this.errorMsg.set('');
     this.successMsg.set('');
@@ -163,12 +113,10 @@ export class Perfil implements OnInit {
       this.errorMsg.set('Ingresa tu nombre.');
       return;
     }
-
     if (!payload.apaterno) {
       this.errorMsg.set('Ingresa tu apellido paterno.');
       return;
     }
-
     if (!payload.telefono) {
       this.errorMsg.set('Ingresa tu número de teléfono.');
       return;
@@ -180,27 +128,14 @@ export class Perfil implements OnInit {
 
     this.http.put<{ message?: string }>(`${this.authUrl}/actualizar`, payload).subscribe({
       next: (respuesta) => {
-        this.perfil.update((usuario) => {
-          if (!usuario) {
-            return usuario;
-          }
-
-          return {
-            ...usuario,
-            ...payload,
-          };
-        });
-
+        this.perfil.update((usuario) => (usuario ? { ...usuario, ...payload } : usuario));
         this.actualizarUsuarioLocal(payload);
-
         this.saving.set(false);
         this.editando.set(false);
-
         this.successMsg.set(respuesta.message ?? 'Perfil actualizado correctamente.');
       },
       error: (error: HttpErrorResponse) => {
         this.saving.set(false);
-
         this.mostrarError(error, 'No fue posible actualizar el perfil.');
       },
     });
@@ -221,52 +156,36 @@ export class Perfil implements OnInit {
   }
 
   private obtenerUsuarioId(): string | null {
-    if (!isPlatformBrowser(this.platformId)) {
-      return null;
-    }
+    if (!isPlatformBrowser(this.platformId)) return null;
 
     const usuarioGuardado = localStorage.getItem('usuarioLogueado');
-
     if (usuarioGuardado) {
       try {
         const usuario = JSON.parse(usuarioGuardado) as UsuarioLocal;
-
-        const id = usuario.id ?? usuario.Id;
-
-        if (typeof id === 'string' && id.trim()) {
-          return id;
+        if (typeof usuario.id === 'string' && usuario.id.trim()) {
+          return usuario.id;
         }
       } catch {
         localStorage.removeItem('usuarioLogueado');
       }
     }
-
     return this.obtenerIdDesdeToken();
   }
 
   private obtenerIdDesdeToken(): string | null {
     const token = this.auth.getToken();
-
-    if (!token) {
-      return null;
-    }
+    if (!token) return null;
 
     try {
       const partes = token.split('.');
-
-      if (partes.length !== 3) {
-        return null;
-      }
+      if (partes.length !== 3) return null;
 
       const base64 = partes[1].replace(/-/g, '+').replace(/_/g, '/');
-
       const contenido = base64.padEnd(Math.ceil(base64.length / 4) * 4, '=');
-
       const payload = JSON.parse(atob(contenido)) as JwtPayload;
 
       const claimIdentificador =
         'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier';
-
       const identificador = payload.nameid ?? payload[claimIdentificador] ?? payload.sub;
 
       return typeof identificador === 'string' ? identificador : null;
@@ -276,21 +195,14 @@ export class Perfil implements OnInit {
   }
 
   private actualizarUsuarioLocal(payload: ActualizarPerfilRequest): void {
-    if (!isPlatformBrowser(this.platformId)) {
-      return;
-    }
+    if (!isPlatformBrowser(this.platformId)) return;
 
     const usuarioGuardado = localStorage.getItem('usuarioLogueado');
-
-    if (!usuarioGuardado) {
-      return;
-    }
+    if (!usuarioGuardado) return;
 
     try {
       const usuario = JSON.parse(usuarioGuardado) as UsuarioLocal;
-
       usuario.name = payload.name;
-
       localStorage.setItem('usuarioLogueado', JSON.stringify(usuario));
     } catch {
       localStorage.removeItem('usuarioLogueado');
@@ -302,29 +214,24 @@ export class Perfil implements OnInit {
       this.errorMsg.set('No fue posible conectar con CustomerService.');
       return;
     }
-
     if (error.status === 400) {
       this.errorMsg.set(
         error.error?.message ?? error.error?.title ?? 'Los datos enviados no son válidos.',
       );
       return;
     }
-
     if (error.status === 401) {
       this.errorMsg.set('La sesión no es válida o ha expirado.');
       return;
     }
-
     if (error.status === 403) {
       this.errorMsg.set('No tienes permisos para realizar esta operación.');
       return;
     }
-
     if (error.status === 404) {
       this.errorMsg.set('No se encontró el perfil del usuario.');
       return;
     }
-
     this.errorMsg.set(error.error?.message ?? error.error?.title ?? mensajePredeterminado);
   }
 }
